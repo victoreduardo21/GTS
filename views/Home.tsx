@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { ViewState } from '../types';
-import { IconCheck, IconRocket, IconGlobe, IconShield, IconAtom, IconCloud, IconCpu, IconTruck, IconBuilding, IconChart } from '../components/Icons';
+import { IconCheck, IconRocket, IconGlobe, IconShield, IconAtom, IconCloud, IconCpu, IconTruck, IconBuilding, IconChart, IconCode, IconSmartphone } from '../components/Icons';
 
 interface HomeProps {
   onChangeView: (view: ViewState) => void;
@@ -19,6 +19,45 @@ const Home: React.FC<HomeProps> = ({ onChangeView }) => {
       setEmail('');
     }
   };
+
+  const developments = [
+    {
+      category: "Inteligência Artificial",
+      title: "Desenvolvimento de IA",
+      desc: "Soluções inteligentes que automatizam processos e geram insights valiosos para o seu negócio.",
+      icon: <IconCpu className="w-8 h-8 text-accent" />
+    },
+    {
+      category: "Desenvolvimento Web",
+      title: "Desenvolvimento de Sites",
+      desc: "Sites profissionais, responsivos e otimizados para SEO que convertem visitantes em clientes.",
+      icon: <IconGlobe className="w-8 h-8 text-accent" />
+    },
+    {
+      category: "Software como serviço",
+      title: "Desenvolvimento SaaS",
+      desc: "Plataformas escaláveis ​​baseadas em nuvem para atender às necessidades do seu negócio.",
+      icon: <IconCloud className="w-8 h-8 text-accent" />
+    },
+    {
+      category: "Desenvolvimento de Aplicativos",
+      title: "Desenvolvimento de APP",
+      desc: "Aplicativos móveis intuitivos e responsivos para iOS e Android.",
+      icon: <IconSmartphone className="w-8 h-8 text-accent" />
+    },
+    {
+      category: "Software Personalizado",
+      title: "Software Personalizado",
+      desc: "Soluções sob medida que atendem às necessidades específicas do seu negócio.",
+      icon: <IconCode className="w-8 h-8 text-accent" />
+    },
+    {
+      category: "Assessoria Personalizada",
+      title: "Assessoria Personalizada",
+      desc: "Consultoria especializada em tecnologia para orientar e otimizar seus projetos digitais.",
+      icon: <IconChart className="w-8 h-8 text-accent" />
+    }
+  ];
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -82,31 +121,17 @@ const Home: React.FC<HomeProps> = ({ onChangeView }) => {
       {/* About Us Section */}
       <section className="py-24 bg-primary relative">
          <div className="container mx-auto px-4">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-               <div className="relative">
-                  <div className="absolute -top-4 -left-4 w-24 h-24 bg-accent/20 rounded-lg -z-10"></div>
-                  <div className="absolute -bottom-4 -right-4 w-24 h-24 bg-emerald-500/20 rounded-lg -z-10"></div>
-                  <div className="aspect-video rounded-2xl bg-slate-800 overflow-hidden border border-slate-700 relative group">
-                     {/* Placeholder for an office or team image */}
-                     <div className="absolute inset-0 bg-gradient-to-br from-slate-800 to-slate-900 flex items-center justify-center group-hover:scale-105 transition-transform duration-700">
-                        <IconAtom className="w-32 h-32 text-slate-700 opacity-50" />
-                     </div>
-                     <div className="absolute bottom-0 left-0 w-full p-6 bg-gradient-to-t from-slate-900 to-transparent">
-                        <div className="text-white font-bold text-xl">Sede GTS</div>
-                        <div className="text-accent text-sm">São Paulo &bull; Vale do Silício &bull; Lisboa</div>
-                     </div>
-                  </div>
-               </div>
-               <div>
-                  <h2 className="text-accent font-bold uppercase tracking-widest text-sm mb-2">Sobre a GTS</h2>
-                  <h3 className="text-4xl md:text-5xl font-bold text-white mb-6">Arquitetos do <br/>Amanhã Digital</h3>
-                  <p className="text-slate-400 text-lg mb-6 leading-relaxed">
-                     A <strong>Global Tech Software</strong> nasceu com uma missão clara: eliminar a complexidade tecnológica para que nossos parceiros possam focar no crescimento. 
-                  </p>
-                  <p className="text-slate-400 text-lg mb-8 leading-relaxed">
-                     Combinamos metodologia ágil, código limpo e uma obsessão por segurança para entregar software que não apenas funciona, mas escala globalmente desde o primeiro dia.
-                  </p>
-                  <ul className="space-y-4">
+            <div className="max-w-4xl mx-auto text-center">
+               <h2 className="text-accent font-bold uppercase tracking-widest text-sm mb-2">Sobre a GTS</h2>
+               <h3 className="text-4xl md:text-5xl font-bold text-white mb-6">Arquitetos do <br/>Amanhã Digital</h3>
+               <p className="text-slate-400 text-lg mb-6 leading-relaxed">
+                  A <strong>Global Tech Software</strong> nasceu com uma missão clara: eliminar a complexidade tecnológica para que nossos parceiros possam focar no crescimento. 
+               </p>
+               <p className="text-slate-400 text-lg mb-8 leading-relaxed">
+                  Combinamos metodologia ágil, código limpo e uma obsessão por segurança para entregar software que não apenas funciona, mas escala globalmente desde o primeiro dia.
+               </p>
+               <div className="flex justify-center">
+                  <ul className="space-y-4 text-left">
                      {[
                         'Equipe multidisciplinar em 3 fusos horários.',
                         'Metodologia proprietária "GTS Agile Flow".',
@@ -119,6 +144,37 @@ const Home: React.FC<HomeProps> = ({ onChangeView }) => {
                      ))}
                   </ul>
                </div>
+            </div>
+         </div>
+      </section>
+
+      {/* NEW SECTION: O Que Desenvolvemos */}
+      <section className="py-24 bg-slate-950 relative border-y border-slate-800">
+         <div className="container mx-auto px-4">
+            <div className="text-center mb-16">
+               <span className="text-accent font-bold tracking-widest text-sm uppercase mb-2 block">Portfólio de Capacidades</span>
+               <h2 className="text-4xl md:text-5xl font-bold text-white">O Que Desenvolvemos</h2>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+               {developments.map((item, index) => (
+                  <div key={index} className="bg-slate-900/50 p-8 rounded-2xl border border-slate-800 hover:border-accent hover:bg-slate-900 transition-all duration-300 group hover:-translate-y-2">
+                     <div className="flex items-center justify-between mb-6">
+                        <div className="p-3 bg-slate-800 rounded-lg group-hover:bg-accent/20 transition-colors">
+                           {item.icon}
+                        </div>
+                        <span className="text-xs font-bold text-slate-500 uppercase tracking-wider group-hover:text-accent transition-colors">
+                           {item.category}
+                        </span>
+                     </div>
+                     <h3 className="text-xl font-bold text-white mb-3 group-hover:text-accent transition-colors">
+                        {item.title}
+                     </h3>
+                     <p className="text-slate-400 leading-relaxed">
+                        {item.desc}
+                     </p>
+                  </div>
+               ))}
             </div>
          </div>
       </section>
