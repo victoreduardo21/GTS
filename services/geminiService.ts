@@ -5,20 +5,23 @@ export const analyzeLeadWithGemini = async (
   name: string,
   message: string
 ): Promise<LeadAnalysis> => {
-  if (!process.env.API_KEY) {
-    // Fallback mock if no API key is present for demo purposes
+  // Use process.env.API_KEY directly. Vite replaces this with the string value at build time.
+  // We avoid 'typeof process' checks because they can prevent the replacement in browser environments.
+  const apiKey = process.env.API_KEY;
+
+  if (!apiKey) {
     console.warn("API Key not found. Using mock response.");
     return {
       sentiment: 'Neutral',
       category: 'Other',
       priority: 'Low',
-      summary: 'Simulated analysis due to missing API Key.',
+      summary: 'Simulated analysis (No API Key).',
       actionItem: 'Check API configuration.'
     };
   }
 
   try {
-    const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+    const ai = new GoogleGenAI({ apiKey: apiKey });
     
     const prompt = `
       Analyze the following contact form submission for a technology company website.
