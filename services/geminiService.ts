@@ -5,12 +5,20 @@ export const analyzeLeadWithGemini = async (
   name: string,
   message: string
 ): Promise<LeadAnalysis> => {
-  // Use process.env.API_KEY directly. Vite replaces this with the string value at build time.
-  // We avoid 'typeof process' checks because they can prevent the replacement in browser environments.
-  const apiKey = process.env.API_KEY;
+  
+  // Blindagem de segurança: Tenta acessar process.env.API_KEY de forma segura.
+  // Se 'process' não estiver definido (ambiente de navegador puro), o catch evita o crash.
+  let apiKey = '';
+  try {
+    // O Vite substituirá 'process.env.API_KEY' pelo valor real durante o build.
+    // O 'try/catch' protege caso o código rode em um ambiente sem polyfill de Node.
+    apiKey = process.env.API_KEY || '';
+  } catch (e) {
+    console.warn("Ambiente de execução não suporta process.env diretamente. Usando modo offline/mock.");
+  }
 
   if (!apiKey) {
-    console.warn("API Key not found. Using mock response.");
+    console.warn("API Key not found or environment not configured. Using mock response.");
     return {
       sentiment: 'Neutral',
       category: 'Other',

@@ -4,13 +4,17 @@ import App from './App';
 import './index.css';
 
 const rootElement = document.getElementById('root');
-if (!rootElement) {
-  throw new Error("Could not find root element to mount to");
-}
 
-const root = ReactDOM.createRoot(rootElement);
-root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
-);
+if (!rootElement) {
+  console.error("ERRO CRÍTICO: Elemento 'root' não encontrado no HTML.");
+} else {
+  try {
+    const root = ReactDOM.createRoot(rootElement);
+    // Removido StrictMode temporariamente para simplificar o debug se necessário
+    root.render(<App />);
+    console.log("Aplicação GTS montada com sucesso.");
+  } catch (error) {
+    console.error("ERRO FATAL ao renderizar a aplicação:", error);
+    rootElement.innerHTML = `<div style="color: white; padding: 20px;">Erro ao carregar aplicação: ${error}</div>`;
+  }
+}
