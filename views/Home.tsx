@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { ViewState } from '../types';
+import { NEWSLETTER_SCRIPT_URL } from '../constants';
 import { IconCheck, IconRocket, IconGlobe, IconShield, IconAtom, IconCloud, IconCpu, IconTruck, IconBuilding, IconChart, IconCode, IconSmartphone, IconLoader } from '../components/Icons';
 
 interface HomeProps {
@@ -17,15 +18,12 @@ const Home: React.FC<HomeProps> = ({ onChangeView }) => {
 
     setIsLoading(true);
 
-    // URL do seu Google Script
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbzzFfeQDGBRZRw2Hi1gJ2aD6fO6-pTarMhqUxJ3prTzP-TZ5vZmY29TlxYARTzppu-8/exec';
-
     try {
       const formData = new FormData();
       formData.append('email', email);
 
       // O modo 'no-cors' é necessário para enviar dados para o Google Script via navegador
-      await fetch(scriptURL, {
+      await fetch(NEWSLETTER_SCRIPT_URL, {
         method: 'POST',
         body: formData,
         mode: 'no-cors'
