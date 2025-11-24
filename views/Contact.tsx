@@ -78,14 +78,8 @@ const Contact: React.FC = () => {
                 <div className="space-y-4">
                    <div className="flex flex-col md:flex-row md:items-center justify-between p-4 bg-slate-950/50 rounded-xl border border-slate-800/50">
                       <div>
-                         <span className="text-xs text-slate-500 uppercase font-bold tracking-wider">Vendas</span>
-                         <a href="mailto:sales@gts-software.com" className="block text-white font-mono hover:text-accent transition-colors">sales@gts-software.com</a>
-                      </div>
-                   </div>
-                   <div className="flex flex-col md:flex-row md:items-center justify-between p-4 bg-slate-950/50 rounded-xl border border-slate-800/50">
-                      <div>
-                         <span className="text-xs text-slate-500 uppercase font-bold tracking-wider">Financeiro</span>
-                         <a href="mailto:financeiro@gts-software.com" className="block text-white font-mono hover:text-accent transition-colors">financeiro@gts-software.com</a>
+                         <span className="text-xs text-slate-500 uppercase font-bold tracking-wider">Contato Geral</span>
+                         <a href="mailto:gtsglobaltech01@gmail.com" className="block text-white font-mono hover:text-accent transition-colors">gtsglobaltech01@gmail.com</a>
                       </div>
                    </div>
                 </div>

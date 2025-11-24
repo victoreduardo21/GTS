@@ -217,8 +217,7 @@ const App: React.FC = () => {
                     <IconMail className="w-5 h-5" />
                   </div>
                   <div className="flex flex-col text-sm">
-                     <a href="mailto:financeiro@gts-software.com" className="hover:text-accent transition-colors">financeiro@gts-software.com</a>
-                     <a href="mailto:sales@gts-software.com" className="hover:text-accent transition-colors">sales@gts-software.com</a>
+                     <a href="mailto:gtsglobaltech01@gmail.com" className="hover:text-accent transition-colors">gtsglobaltech01@gmail.com</a>
                   </div>
                 </li>
               </ul>
