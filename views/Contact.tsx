@@ -1,237 +1,147 @@
-import React, { useState, useEffect } from 'react';
-import { analyzeLeadWithGemini } from '../services/geminiService';
-import { ContactSubmission, LeadAnalysis } from '../types';
-import { IconLoader, IconCheck } from '../components/Icons';
+import React from 'react';
+import { IconWhatsApp, IconMail, IconMapPin, IconPhone, IconClock, IconGlobe, IconShield } from '../components/Icons';
 
 const Contact: React.FC = () => {
-  // Form State
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [message, setMessage] = useState('');
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [success, setSuccess] = useState(false);
-  
-  // "Fake Backend" State
-  const [submissions, setSubmissions] = useState<ContactSubmission[]>([]);
-  const [showDatabase, setShowDatabase] = useState(false);
-
-  // Load existing "database" from localStorage on mount
-  useEffect(() => {
-    const saved = localStorage.getItem('techNovaSubmissions');
-    if (saved) {
-      setSubmissions(JSON.parse(saved));
-    }
-  }, []);
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-    setSuccess(false);
-
-    try {
-      // 1. Analyze with Gemini AI
-      // In a real app, this might happen on a serverless function before saving to DB/Sheets
-      const analysis: LeadAnalysis = await analyzeLeadWithGemini(name, message);
-
-      // 2. Create Submission Record
-      const newSubmission: ContactSubmission = {
-        id: Math.random().toString(36).substring(7),
-        name,
-        email,
-        message,
-        timestamp: new Date().toLocaleString('pt-BR'),
-        aiAnalysis: analysis
-      };
-
-      // 3. "Save to Database" (Local Simulation)
-      const updatedSubmissions = [newSubmission, ...submissions];
-      setSubmissions(updatedSubmissions);
-      localStorage.setItem('techNovaSubmissions', JSON.stringify(updatedSubmissions));
-
-      // 4. Reset UI
-      setName('');
-      setEmail('');
-      setMessage('');
-      setSuccess(true);
-    } catch (error) {
-      console.error("Submission failed", error);
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
-
-  const clearDatabase = () => {
-    if(confirm("Tem certeza que deseja limpar o banco de dados local?")) {
-      setSubmissions([]);
-      localStorage.removeItem('techNovaSubmissions');
-    }
-  };
-
   return (
-    <div className="container mx-auto px-4 py-16">
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
-        
-        {/* Contact Form Section */}
-        <div>
-          <h2 className="text-4xl font-bold text-white mb-6">Vamos Conversar</h2>
-          <p className="text-slate-400 mb-8">
-            Preencha o formulário abaixo para iniciar seu projeto. Nossa IA irá pré-analisar sua solicitação para direcioná-la ao especialista correto.
-          </p>
-          
-          <form onSubmit={handleSubmit} className="space-y-6 bg-slate-900 p-8 rounded-2xl border border-slate-800 shadow-xl">
-            <div>
-              <label className="block text-sm font-medium text-slate-300 mb-2">Nome Completo</label>
-              <input 
-                type="text" 
-                required
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                className="w-full px-4 py-3 bg-slate-950 border border-slate-700 rounded-lg text-white focus:ring-2 focus:ring-accent focus:border-transparent outline-none transition-all"
-                placeholder="Ex: João Silva"
-              />
-            </div>
-            
-            <div>
-              <label className="block text-sm font-medium text-slate-300 mb-2">Email Corporativo</label>
-              <input 
-                type="email" 
-                required
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="w-full px-4 py-3 bg-slate-950 border border-slate-700 rounded-lg text-white focus:ring-2 focus:ring-accent focus:border-transparent outline-none transition-all"
-                placeholder="Ex: joao@empresa.com"
-              />
-            </div>
-            
-            <div>
-              <label className="block text-sm font-medium text-slate-300 mb-2">Sobre seu Projeto</label>
-              <textarea 
-                required
-                value={message}
-                onChange={(e) => setMessage(e.target.value)}
-                rows={5}
-                className="w-full px-4 py-3 bg-slate-950 border border-slate-700 rounded-lg text-white focus:ring-2 focus:ring-accent focus:border-transparent outline-none transition-all resize-none"
-                placeholder="Descreva brevemente o que você precisa..."
-              />
-            </div>
+    <div className="min-h-screen bg-primary">
+      {/* Header Section */}
+      <div className="bg-slate-900 py-20 border-b border-slate-800">
+         <div className="container mx-auto px-4 text-center">
+            <span className="inline-block py-1 px-3 rounded-full bg-accent/10 border border-accent/20 text-accent text-xs font-bold uppercase tracking-wider mb-4">
+              Sem Burocracia
+            </span>
+            <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">Canais Oficiais</h2>
+            <p className="text-slate-400 text-lg max-w-2xl mx-auto leading-relaxed">
+              Na GTS, valorizamos a velocidade. Eliminamos formulários lentos para conectar você diretamente aos nossos engenheiros e consultores comerciais.
+            </p>
+         </div>
+      </div>
 
-            <button 
-              type="submit" 
-              disabled={isSubmitting}
-              className={`w-full py-4 rounded-lg font-bold text-white transition-all flex items-center justify-center gap-2
-                ${isSubmitting ? 'bg-slate-700 cursor-not-allowed' : 'bg-accent hover:bg-accentHover shadow-lg shadow-accent/25'}
-              `}
-            >
-              {isSubmitting ? (
-                <>
-                  <IconLoader className="animate-spin w-5 h-5" />
-                  Processando com IA...
-                </>
-              ) : success ? (
-                <>
-                  <IconCheck className="w-5 h-5" />
-                  Enviado com Sucesso!
-                </>
-              ) : (
-                "Enviar Mensagem"
-              )}
-            </button>
-            
-            {success && (
-              <p className="text-center text-emerald-400 text-sm mt-4 animate-pulse">
-                Sua mensagem foi recebida e classificada pelo nosso sistema.
-              </p>
-            )}
-          </form>
+      <div className="container mx-auto px-4 py-16">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
+          
+          {/* Main Action: WhatsApp */}
+          <div className="bg-gradient-to-br from-slate-800 to-slate-900 p-8 rounded-3xl border border-slate-700 shadow-2xl relative overflow-hidden group">
+             <div className="absolute top-0 right-0 w-64 h-64 bg-emerald-500/10 rounded-full blur-[80px] group-hover:bg-emerald-500/20 transition-all"></div>
+             
+             <div className="relative z-10">
+                <div className="w-16 h-16 bg-emerald-500/20 rounded-2xl flex items-center justify-center mb-6 text-emerald-400">
+                   <IconWhatsApp className="w-8 h-8" />
+                </div>
+                
+                <h3 className="text-2xl font-bold text-white mb-2">Atendimento Imediato</h3>
+                <p className="text-slate-400 mb-8">
+                   Fale agora com nossa equipe via WhatsApp. Escolha o departamento abaixo para agilizar seu atendimento.
+                </p>
+
+                <div className="space-y-4">
+                   <a 
+                     href="https://wa.me/5513996104848?text=Olá, gostaria de falar com o time de Vendas sobre um novo projeto."
+                     target="_blank"
+                     rel="noopener noreferrer"
+                     className="block w-full py-4 px-6 bg-[#25D366] hover:bg-[#20bd5a] text-slate-900 font-bold rounded-xl transition-all transform hover:translate-x-2 flex items-center justify-between group/btn"
+                   >
+                      <span className="flex items-center gap-3">
+                        <IconGlobe className="w-5 h-5" />
+                        Comercial & Novos Projetos
+                      </span>
+                      <span className="opacity-0 group-hover/btn:opacity-100 transition-opacity">&rarr;</span>
+                   </a>
+
+                   <a 
+                     href="https://wa.me/5513996104848?text=Olá, sou cliente e preciso de suporte técnico."
+                     target="_blank"
+                     rel="noopener noreferrer"
+                     className="block w-full py-4 px-6 bg-slate-800 hover:bg-slate-700 border border-slate-600 text-white font-bold rounded-xl transition-all transform hover:translate-x-2 flex items-center justify-between group/btn"
+                   >
+                      <span className="flex items-center gap-3">
+                        <IconShield className="w-5 h-5" />
+                        Suporte Técnico & Infraestrutura
+                      </span>
+                      <span className="opacity-0 group-hover/btn:opacity-100 transition-opacity">&rarr;</span>
+                   </a>
+                </div>
+             </div>
+          </div>
+
+          {/* Secondary Info: Email & HQ */}
+          <div className="space-y-8">
+             
+             {/* Emails */}
+             <div className="bg-slate-900 p-8 rounded-3xl border border-slate-800 hover:border-accent/30 transition-colors">
+                <div className="flex items-center gap-4 mb-6">
+                   <div className="p-3 bg-slate-800 rounded-lg text-accent">
+                      <IconMail className="w-6 h-6" />
+                   </div>
+                   <h3 className="text-xl font-bold text-white">E-mail Corporativo</h3>
+                </div>
+                <div className="space-y-4">
+                   <div className="flex flex-col md:flex-row md:items-center justify-between p-4 bg-slate-950/50 rounded-xl border border-slate-800/50">
+                      <div>
+                         <span className="text-xs text-slate-500 uppercase font-bold tracking-wider">Vendas</span>
+                         <a href="mailto:sales@gts-software.com" className="block text-white font-mono hover:text-accent transition-colors">sales@gts-software.com</a>
+                      </div>
+                   </div>
+                   <div className="flex flex-col md:flex-row md:items-center justify-between p-4 bg-slate-950/50 rounded-xl border border-slate-800/50">
+                      <div>
+                         <span className="text-xs text-slate-500 uppercase font-bold tracking-wider">Financeiro</span>
+                         <a href="mailto:financeiro@gts-software.com" className="block text-white font-mono hover:text-accent transition-colors">financeiro@gts-software.com</a>
+                      </div>
+                   </div>
+                </div>
+             </div>
+
+             {/* Location & Hours */}
+             <div className="bg-slate-900 p-8 rounded-3xl border border-slate-800 hover:border-accent/30 transition-colors">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                   <div>
+                      <div className="flex items-center gap-3 mb-4">
+                         <IconMapPin className="w-5 h-5 text-accent" />
+                         <span className="font-bold text-white">Sede Global</span>
+                      </div>
+                      <p className="text-slate-400 text-sm leading-relaxed">
+                         Empresa Internacional<br />
+                         Atendimento Global<br />
+                         Brasil / Portugal / EUA
+                      </p>
+                   </div>
+                   <div>
+                      <div className="flex items-center gap-3 mb-4">
+                         <IconClock className="w-5 h-5 text-accent" />
+                         <span className="font-bold text-white">Horário</span>
+                      </div>
+                      <p className="text-slate-400 text-sm leading-relaxed">
+                         Segunda a Sexta<br />
+                         09:00 - 18:00 (GMT-3)<br />
+                         <span className="text-xs text-emerald-500 mt-2 block font-bold">Plantão 24h para Contratos Enterprise</span>
+                      </p>
+                   </div>
+                </div>
+             </div>
+
+          </div>
         </div>
 
-        {/* "Database" Simulation Section */}
-        <div className="lg:pl-8 space-y-8">
-           <div className="bg-slate-800/50 rounded-xl p-6 border border-slate-700">
-              <h3 className="text-xl font-bold text-white mb-2">Nota Técnica: Backend & Planilhas</h3>
-              <p className="text-slate-400 text-sm mb-4">
-                Você perguntou sobre salvar dados em uma planilha. Em um ambiente de produção real, utilizaríamos a <strong>Google Sheets API</strong> ou um serviço como <strong>Zapier</strong> para enviar esses dados automaticamente para sua planilha do Google Drive.
-              </p>
-              <p className="text-slate-400 text-sm">
-                Como este é um site demonstrativo, simulamos esse comportamento abaixo. Quando você envia o formulário, nossa IA (Gemini) analisa o conteúdo e "salva" em uma tabela local visível aqui.
-              </p>
-           </div>
-
-           <div className="border border-slate-700 rounded-xl overflow-hidden bg-slate-900">
-              <div className="p-4 bg-slate-800 flex justify-between items-center border-b border-slate-700">
-                <div className="flex items-center gap-2">
-                  <div className="w-3 h-3 rounded-full bg-emerald-500"></div>
-                  <span className="font-mono text-sm font-bold text-slate-200">Simulação de Planilha / CRM</span>
-                </div>
-                <div className="flex gap-2">
-                  <button 
-                    onClick={() => setShowDatabase(!showDatabase)}
-                    className="text-xs text-accent hover:text-white underline"
-                  >
-                    {showDatabase ? "Ocultar Dados" : "Mostrar Dados"}
-                  </button>
-                  {showDatabase && (
-                     <button onClick={clearDatabase} className="text-xs text-red-400 hover:text-red-300">Limpar</button>
-                  )}
-                </div>
+        {/* FAQ Section */}
+        <div className="max-w-4xl mx-auto mt-24">
+           <h3 className="text-2xl font-bold text-white text-center mb-12">Perguntas Frequentes</h3>
+           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="bg-slate-900/50 p-6 rounded-2xl border border-slate-800">
+                 <h4 className="font-bold text-white mb-2">Qual o prazo médio de desenvolvimento?</h4>
+                 <p className="text-slate-400 text-sm">Depende da complexidade. MVPs podem ser entregues em 4 semanas, enquanto sistemas ERP complexos levam de 3 a 6 meses.</p>
               </div>
-              
-              {showDatabase ? (
-                <div className="overflow-x-auto spreadsheet-scroll max-h-[500px]">
-                  <table className="w-full text-left text-sm whitespace-nowrap">
-                    <thead className="bg-slate-950 text-slate-400 font-mono uppercase text-xs">
-                      <tr>
-                        <th className="px-4 py-3">Data</th>
-                        <th className="px-4 py-3">Nome</th>
-                        <th className="px-4 py-3">Sentimento (IA)</th>
-                        <th className="px-4 py-3">Categoria (IA)</th>
-                        <th className="px-4 py-3">Prioridade (IA)</th>
-                        <th className="px-4 py-3">Resumo (IA)</th>
-                      </tr>
-                    </thead>
-                    <tbody className="divide-y divide-slate-800">
-                      {submissions.length === 0 ? (
-                        <tr>
-                          <td colSpan={6} className="px-4 py-8 text-center text-slate-500 italic">
-                            Nenhum dado recebido ainda. Preencha o formulário ao lado.
-                          </td>
-                        </tr>
-                      ) : (
-                        submissions.map((sub) => (
-                          <tr key={sub.id} className="hover:bg-slate-800/50 transition-colors">
-                            <td className="px-4 py-3 text-slate-400">{sub.timestamp}</td>
-                            <td className="px-4 py-3 text-white font-medium">{sub.name}</td>
-                            <td className="px-4 py-3">
-                              <span className={`px-2 py-0.5 rounded text-xs border 
-                                ${sub.aiAnalysis?.sentiment === 'Positive' ? 'bg-emerald-500/10 border-emerald-500/30 text-emerald-400' : 
-                                  sub.aiAnalysis?.sentiment === 'Negative' ? 'bg-red-500/10 border-red-500/30 text-red-400' : 
-                                  'bg-slate-700 text-slate-300'}`}>
-                                {sub.aiAnalysis?.sentiment}
-                              </span>
-                            </td>
-                            <td className="px-4 py-3 text-slate-300">{sub.aiAnalysis?.category}</td>
-                            <td className="px-4 py-3">
-                               <span className={`font-bold 
-                                ${sub.aiAnalysis?.priority === 'High' ? 'text-red-400' : 
-                                  sub.aiAnalysis?.priority === 'Medium' ? 'text-amber-400' : 
-                                  'text-blue-400'}`}>
-                                {sub.aiAnalysis?.priority}
-                              </span>
-                            </td>
-                            <td className="px-4 py-3 text-slate-400 max-w-xs truncate" title={sub.aiAnalysis?.summary}>
-                              {sub.aiAnalysis?.summary}
-                            </td>
-                          </tr>
-                        ))
-                      )}
-                    </tbody>
-                  </table>
-                </div>
-              ) : (
-                <div className="p-12 text-center text-slate-500 text-sm">
-                  Clique em "Mostrar Dados" para visualizar a tabela de leads processados pela IA.
-                </div>
-              )}
+              <div className="bg-slate-900/50 p-6 rounded-2xl border border-slate-800">
+                 <h4 className="font-bold text-white mb-2">Vocês atendem fora do Brasil?</h4>
+                 <p className="text-slate-400 text-sm">Sim. A GTS é uma empresa Global. Temos estrutura para receber pagamentos internacionais e atender em múltiplos fusos horários.</p>
+              </div>
+              <div className="bg-slate-900/50 p-6 rounded-2xl border border-slate-800">
+                 <h4 className="font-bold text-white mb-2">Como funciona o suporte?</h4>
+                 <p className="text-slate-400 text-sm">Oferecemos garantia de 3 a 12 meses após a entrega. Também temos planos de manutenção mensal (SLA) para evolução contínua.</p>
+              </div>
+              <div className="bg-slate-900/50 p-6 rounded-2xl border border-slate-800">
+                 <h4 className="font-bold text-white mb-2">Trabalham com qual tecnologia?</h4>
+                 <p className="text-slate-400 text-sm">Somos especialistas em JavaScript (React, Node.js), Python (IA/Data), Cloud (Google/AWS) e Mobile Nativo.</p>
+              </div>
            </div>
         </div>
 
