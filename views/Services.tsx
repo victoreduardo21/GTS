@@ -43,9 +43,14 @@ const Services: React.FC = () => {
               <p className="text-slate-400 leading-relaxed text-lg">
                 {service.description}
               </p>
-              <div className="mt-6 pt-6 border-t border-slate-700/50 flex items-center text-accent font-medium opacity-0 group-hover:opacity-100 transition-opacity translate-y-2 group-hover:translate-y-0">
+              <a 
+                href={`https://wa.me/5513996104848?text=Olá, tenho interesse em saber mais sobre o serviço: ${encodeURIComponent(service.title)}`}
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="mt-6 pt-6 border-t border-slate-700/50 flex items-center text-accent font-medium opacity-0 group-hover:opacity-100 transition-opacity translate-y-2 group-hover:translate-y-0 cursor-pointer"
+              >
                  <span>Saber mais &rarr;</span>
-              </div>
+              </a>
             </div>
           ))}
         </div>
