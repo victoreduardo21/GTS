@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { ViewState } from '../types';
-import { IconCheck, IconRocket, IconGlobe, IconShield, IconAtom, IconCloud, IconCpu, IconTruck, IconBuilding, IconChart, IconCode, IconSmartphone } from '../components/Icons';
+import { IconCheck, IconRocket, IconGlobe, IconShield, IconAtom, IconCloud, IconCpu, IconTruck, IconBuilding, IconChart, IconCode, IconSmartphone, IconLoader } from '../components/Icons';
 
 interface HomeProps {
   onChangeView: (view: ViewState) => void;
@@ -9,14 +9,36 @@ interface HomeProps {
 const Home: React.FC<HomeProps> = ({ onChangeView }) => {
   const [email, setEmail] = useState('');
   const [subscribed, setSubscribed] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
-  const handleSubscribe = (e: React.FormEvent) => {
+  const handleSubscribe = async (e: React.FormEvent) => {
     e.preventDefault();
-    // In a real app, this would send to a backend or Google Sheet
-    if (email) {
+    if (!email) return;
+
+    setIsLoading(true);
+
+    // URL do seu Google Script
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbzzFfeQDGBRZRw2Hi1gJ2aD6fO6-pTarMhqUxJ3prTzP-TZ5vZmY29TlxYARTzppu-8/exec';
+
+    try {
+      const formData = new FormData();
+      formData.append('email', email);
+
+      // O modo 'no-cors' é necessário para enviar dados para o Google Script via navegador
+      await fetch(scriptURL, {
+        method: 'POST',
+        body: formData,
+        mode: 'no-cors'
+      });
+
       setSubscribed(true);
-      setTimeout(() => setSubscribed(false), 3000);
       setEmail('');
+      setTimeout(() => setSubscribed(false), 5000);
+    } catch (error) {
+      console.error('Erro ao salvar email:', error);
+      alert('Ocorreu um erro ao se inscrever. Tente novamente.');
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -331,14 +353,20 @@ const Home: React.FC<HomeProps> = ({ onChangeView }) => {
                            placeholder="Seu melhor e-mail corporativo" 
                            value={email}
                            onChange={(e) => setEmail(e.target.value)}
-                           className="w-full px-5 py-4 bg-slate-950 border border-slate-600 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/50 transition-all"
+                           className="w-full px-5 py-4 bg-slate-950 border border-slate-600 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/50 transition-all disabled:opacity-50"
+                           disabled={isLoading}
                          />
                       </div>
                       <button 
                         type="submit" 
-                        className="w-full px-6 py-4 bg-white text-slate-900 hover:bg-slate-200 font-bold rounded-xl transition-all transform hover:scale-[1.02]"
+                        disabled={isLoading}
+                        className="w-full px-6 py-4 bg-white text-slate-900 hover:bg-slate-200 font-bold rounded-xl transition-all transform hover:scale-[1.02] disabled:opacity-70 disabled:cursor-not-allowed flex justify-center items-center"
                       >
-                        Assinar Newsletter
+                        {isLoading ? (
+                            <IconLoader className="w-5 h-5 animate-spin text-slate-900" />
+                        ) : (
+                            "Assinar Newsletter"
+                        )}
                       </button>
                     </form>
                   )}
