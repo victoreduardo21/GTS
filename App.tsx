@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ViewState } from './types';
 import { IconMenu, IconX, IconAtom, IconFacebook, IconLinkedIn, IconInstagram, IconTwitter, IconMapPin, IconPhone, IconMail, IconClock, IconWhatsApp } from './components/Icons';
 
@@ -8,9 +8,26 @@ import Services from './views/Services';
 import Systems from './views/Systems';
 import Contact from './views/Contact';
 
+// Adicionar tipagem para o gtag
+declare global {
+  interface Window {
+    gtag: (...args: any[]) => void;
+  }
+}
+
 const App: React.FC = () => {
   const [currentView, setCurrentView] = useState<ViewState>(ViewState.HOME);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  // Rastreamento de mudança de página para o Google Analytics
+  useEffect(() => {
+    if (typeof window.gtag === 'function') {
+      window.gtag('event', 'page_view', {
+        page_title: `GTS - ${currentView.charAt(0).toUpperCase() + currentView.slice(1)}`,
+        page_path: `/${currentView === ViewState.HOME ? '' : currentView}`
+      });
+    }
+  }, [currentView]);
 
   const renderView = () => {
     switch (currentView) {
