@@ -35,55 +35,55 @@ const Blog: React.FC = () => {
     }
   };
 
-  // MOCK DATA - Substituirei pelos links reais assim que você me enviar
+  // Dados dos Artigos (Atualizados com Links do LinkedIn)
   const posts = [
     {
       category: "Inteligência Artificial",
-      date: "12 OUT 2023",
-      title: "Como a IA Generativa está redefinindo o suporte ao cliente",
-      excerpt: "Empresas que adotaram chatbots baseados em LLMs viram uma redução de 70% no tempo de resposta. Entenda a arquitetura por trás dessa revolução.",
+      date: "JAN 2024",
+      title: "O Futuro da IA: Transformação nos Negócios",
+      excerpt: "Como a Inteligência Artificial está redefinindo estratégias empresariais e o que esperar dos próximos anos nesta revolução tecnológica.",
       image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&q=80&w=800",
-      url: "https://www.linkedin.com/company/gts-globaltechsoftware/" // Aguardando link específico
+      url: "https://www.linkedin.com/posts/gts-globaltechsoftware_futuro-das-ia-activity-7288378393518071809--UvU?utm_source=share&utm_medium=member_desktop&rcm=ACoAAD4tL9UB9xaNkCnWqT1-ZlhDE7etULH_WkE"
     },
     {
-      category: "Cloud Computing",
-      date: "05 SET 2023",
-      title: "Migração para Nuvem: Estratégias para reduzir custos em 2024",
-      excerpt: "Não basta apenas 'ir para a nuvem'. A otimização de recursos e o uso de arquiteturas serverless são a chave para a eficiência financeira.",
-      image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80&w=800",
-      url: "https://www.linkedin.com/company/gts-globaltechsoftware/" // Aguardando link específico
-    },
-    {
-      category: "Segurança",
-      date: "28 AGO 2023",
-      title: "Zero Trust: Por que o modelo tradicional de segurança falhou",
-      excerpt: "No mundo do trabalho híbrido, o perímetro de segurança desapareceu. Veja como proteger seus ativos digitais com a metodologia Zero Trust.",
+      category: "Cibersegurança",
+      date: "DEZ 2023",
+      title: "A Importância da Cibersegurança no Mundo Digital",
+      excerpt: "Em um mundo hiperconectado, proteger seus ativos digitais não é opcional. Entenda os riscos e como blindar sua empresa.",
       image: "https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?auto=format&fit=crop&q=80&w=800",
-      url: "https://www.linkedin.com/company/gts-globaltechsoftware/" // Aguardando link específico
+      url: "https://www.linkedin.com/feed/update/urn:li:activity:7286897126209392640"
+    },
+    {
+      category: "Inovação",
+      date: "NOV 2023",
+      title: "As Principais Tendências Tecnológicas",
+      excerpt: "Uma análise profunda sobre as tecnologias emergentes que estão moldando o mercado global e criando novas oportunidades.",
+      image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80&w=800",
+      url: "https://www.linkedin.com/feed/update/urn:li:activity:7281005266391687172"
     },
     {
       category: "DevOps",
-      date: "15 AGO 2023",
+      date: "EM BREVE",
       title: "Acelere seu Time-to-Market com CI/CD Automatizado",
       excerpt: "Pipelines de deploy automatizados não são luxo, são necessidade. Como implementamos entregas contínuas em grandes corporações.",
       image: "https://images.unsplash.com/photo-1618401471353-b98afee0b2eb?auto=format&fit=crop&q=80&w=800",
-      url: "https://www.linkedin.com/company/gts-globaltechsoftware/" // Aguardando link específico
+      url: "https://www.linkedin.com/company/gts-globaltechsoftware/" // Link genérico até o artigo sair
     },
     {
-      category: "Fintech",
-      date: "02 AGO 2023",
+      category: "Blockchain",
+      date: "EM BREVE",
       title: "Blockchain além das Criptomoedas: Contratos Inteligentes",
       excerpt: "Como instituições financeiras estão usando Smart Contracts para automatizar auditorias e garantir transparência total.",
       image: "https://images.unsplash.com/photo-1639322537228-f710d846310a?auto=format&fit=crop&q=80&w=800",
-      url: "https://www.linkedin.com/company/gts-globaltechsoftware/" // Aguardando link específico
+      url: "https://www.linkedin.com/company/gts-globaltechsoftware/" // Link genérico até o artigo sair
     },
     {
-      category: "Tendências",
-      date: "20 JUL 2023",
-      title: "O Futuro do Desenvolvimento de Software: Low-Code vs Pro-Code",
+      category: "Desenvolvimento",
+      date: "EM BREVE",
+      title: "O Futuro do Desenvolvimento: Low-Code vs Pro-Code",
       excerpt: "Quando usar plataformas de desenvolvimento rápido e quando investir em código proprietário de alta performance.",
       image: "https://images.unsplash.com/photo-1555099962-4199c345e5dd?auto=format&fit=crop&q=80&w=800",
-      url: "https://www.linkedin.com/company/gts-globaltechsoftware/" // Aguardando link específico
+      url: "https://www.linkedin.com/company/gts-globaltechsoftware/" // Link genérico até o artigo sair
     }
   ];
 
@@ -125,7 +125,7 @@ const Blog: React.FC = () => {
                   className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700"
                 />
                 <div className="absolute top-4 left-4 z-20">
-                  <span className="px-3 py-1 bg-primary/90 backdrop-blur text-xs font-bold text-white rounded uppercase tracking-wider">
+                  <span className={`px-3 py-1 backdrop-blur text-xs font-bold text-white rounded uppercase tracking-wider ${post.date === 'EM BREVE' ? 'bg-amber-500/90' : 'bg-primary/90'}`}>
                     {post.category}
                   </span>
                 </div>
@@ -141,7 +141,7 @@ const Blog: React.FC = () => {
                 </p>
                 <div className="mt-auto">
                   <span className="inline-flex items-center gap-2 text-accent text-sm font-bold group-hover:gap-3 transition-all">
-                    Ler Artigo no LinkedIn <IconArrowRight className="w-4 h-4" />
+                    {post.date === 'EM BREVE' ? 'Seguir no LinkedIn' : 'Ler Artigo Completo'} <IconArrowRight className="w-4 h-4" />
                   </span>
                 </div>
               </div>
