@@ -1,10 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ViewState } from '../types';
 import { NEWSLETTER_SCRIPT_URL, TESTIMONIAL_SCRIPT_URL } from '../constants';
 import { IconCheck, IconRocket, IconGlobe, IconShield, IconCloud, IconCpu, IconTruck, IconBuilding, IconChart, IconArrowRight, IconWhatsApp, IconStar, IconLoader, IconAtom } from '../components/Icons';
 
 interface HomeProps {
   onChangeView: (view: ViewState) => void;
+}
+
+interface TestimonialData {
+  name: string;
+  role: string;
+  text: string;
+  stars: number;
 }
 
 const Home: React.FC<HomeProps> = ({ onChangeView }) => {
@@ -20,6 +27,29 @@ const Home: React.FC<HomeProps> = ({ onChangeView }) => {
   const [tRating, setTRating] = useState(5); // Default 5 stars
   const [isTSending, setIsTSending] = useState(false);
   const [tSent, setTSent] = useState(false);
+
+  // Dynamic Testimonials State
+  const [dbTestimonials, setDbTestimonials] = useState<TestimonialData[]>([]);
+
+  // Load Testimonials from Google Sheet on Mount
+  useEffect(() => {
+    const fetchTestimonials = async () => {
+      try {
+        const response = await fetch(TESTIMONIAL_SCRIPT_URL);
+        const data = await response.json();
+        
+        if (Array.isArray(data)) {
+          // Inverte para mostrar os mais recentes primeiro
+          setDbTestimonials(data.reverse());
+        }
+      } catch (error) {
+        console.error("Erro ao carregar depoimentos dinâmicos:", error);
+        // Falha silenciosa: se der erro, mostra apenas os estáticos
+      }
+    };
+
+    fetchTestimonials();
+  }, []);
 
   const handleSubscribe = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -70,6 +100,12 @@ const Home: React.FC<HomeProps> = ({ onChangeView }) => {
       setTCompany('');
       setTMsg('');
       setTRating(5);
+      
+      // Opcional: Recarregar depoimentos após enviar (com delay para o Google processar)
+      setTimeout(() => {
+         // Lógica simples de refresh poderia ser implementada aqui
+      }, 2000);
+
       setTimeout(() => setTSent(false), 5000);
     } catch (error) {
       alert('Erro ao enviar depoimento.');
@@ -99,7 +135,7 @@ const Home: React.FC<HomeProps> = ({ onChangeView }) => {
     }
   ];
 
-  const testimonials = [
+  const staticTestimonials = [
     {
       name: "Roberto Almeida",
       role: "CEO, FinLogística",
@@ -119,6 +155,9 @@ const Home: React.FC<HomeProps> = ({ onChangeView }) => {
       stars: 5
     }
   ];
+
+  // Combina os depoimentos vindos da planilha com os estáticos
+  const allTestimonials = [...dbTestimonials, ...staticTestimonials];
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -253,16 +292,17 @@ const Home: React.FC<HomeProps> = ({ onChangeView }) => {
                <p className="text-slate-400">Resultados reais para empresas que exigem excelência.</p>
             </div>
             
+            {/* Grid dinâmico que exibe os depoimentos da planilha */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
-               {testimonials.map((t, i) => (
-                  <div key={i} className="bg-surface p-8 rounded-2xl border border-slate-800 relative">
+               {allTestimonials.map((t, i) => (
+                  <div key={i} className="bg-surface p-8 rounded-2xl border border-slate-800 relative animate-fade-in">
                      <div className="flex gap-1 mb-4 text-yellow-500">
-                        {[...Array(t.stars)].map((_, idx) => <IconStar key={idx} className="w-5 h-5 fill-current" />)}
+                        {[...Array(t.stars || 5)].map((_, idx) => <IconStar key={idx} className="w-5 h-5 fill-current" />)}
                      </div>
                      <p className="text-slate-300 italic mb-6 leading-relaxed">"{t.text}"</p>
                      <div className="flex items-center gap-4">
                         <div className="w-10 h-10 rounded-full bg-gradient-to-br from-slate-700 to-slate-800 flex items-center justify-center font-bold text-white">
-                           {t.name.charAt(0)}
+                           {(t.name || "A").charAt(0).toUpperCase()}
                         </div>
                         <div>
                            <h4 className="text-white font-bold text-sm">{t.name}</h4>
