@@ -35,48 +35,55 @@ const Blog: React.FC = () => {
     }
   };
 
+  // MOCK DATA - Substituirei pelos links reais assim que você me enviar
   const posts = [
     {
       category: "Inteligência Artificial",
       date: "12 OUT 2023",
       title: "Como a IA Generativa está redefinindo o suporte ao cliente",
       excerpt: "Empresas que adotaram chatbots baseados em LLMs viram uma redução de 70% no tempo de resposta. Entenda a arquitetura por trás dessa revolução.",
-      image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&q=80&w=800"
+      image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&q=80&w=800",
+      url: "https://www.linkedin.com/company/gts-globaltechsoftware/" // Aguardando link específico
     },
     {
       category: "Cloud Computing",
       date: "05 SET 2023",
       title: "Migração para Nuvem: Estratégias para reduzir custos em 2024",
       excerpt: "Não basta apenas 'ir para a nuvem'. A otimização de recursos e o uso de arquiteturas serverless são a chave para a eficiência financeira.",
-      image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80&w=800"
+      image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80&w=800",
+      url: "https://www.linkedin.com/company/gts-globaltechsoftware/" // Aguardando link específico
     },
     {
       category: "Segurança",
       date: "28 AGO 2023",
       title: "Zero Trust: Por que o modelo tradicional de segurança falhou",
       excerpt: "No mundo do trabalho híbrido, o perímetro de segurança desapareceu. Veja como proteger seus ativos digitais com a metodologia Zero Trust.",
-      image: "https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?auto=format&fit=crop&q=80&w=800"
+      image: "https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?auto=format&fit=crop&q=80&w=800",
+      url: "https://www.linkedin.com/company/gts-globaltechsoftware/" // Aguardando link específico
     },
     {
       category: "DevOps",
       date: "15 AGO 2023",
       title: "Acelere seu Time-to-Market com CI/CD Automatizado",
       excerpt: "Pipelines de deploy automatizados não são luxo, são necessidade. Como implementamos entregas contínuas em grandes corporações.",
-      image: "https://images.unsplash.com/photo-1618401471353-b98afee0b2eb?auto=format&fit=crop&q=80&w=800"
+      image: "https://images.unsplash.com/photo-1618401471353-b98afee0b2eb?auto=format&fit=crop&q=80&w=800",
+      url: "https://www.linkedin.com/company/gts-globaltechsoftware/" // Aguardando link específico
     },
     {
       category: "Fintech",
       date: "02 AGO 2023",
       title: "Blockchain além das Criptomoedas: Contratos Inteligentes",
       excerpt: "Como instituições financeiras estão usando Smart Contracts para automatizar auditorias e garantir transparência total.",
-      image: "https://images.unsplash.com/photo-1639322537228-f710d846310a?auto=format&fit=crop&q=80&w=800"
+      image: "https://images.unsplash.com/photo-1639322537228-f710d846310a?auto=format&fit=crop&q=80&w=800",
+      url: "https://www.linkedin.com/company/gts-globaltechsoftware/" // Aguardando link específico
     },
     {
       category: "Tendências",
       date: "20 JUL 2023",
       title: "O Futuro do Desenvolvimento de Software: Low-Code vs Pro-Code",
       excerpt: "Quando usar plataformas de desenvolvimento rápido e quando investir em código proprietário de alta performance.",
-      image: "https://images.unsplash.com/photo-1555099962-4199c345e5dd?auto=format&fit=crop&q=80&w=800"
+      image: "https://images.unsplash.com/photo-1555099962-4199c345e5dd?auto=format&fit=crop&q=80&w=800",
+      url: "https://www.linkedin.com/company/gts-globaltechsoftware/" // Aguardando link específico
     }
   ];
 
@@ -103,11 +110,14 @@ const Blog: React.FC = () => {
       <div className="container mx-auto px-4 py-20">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {posts.map((post, index) => (
-            <article 
-              key={index} 
-              className="group bg-surface rounded-2xl border border-slate-800 overflow-hidden hover:border-accent hover:shadow-2xl hover:shadow-accent/5 transition-all duration-300 hover:-translate-y-2 cursor-pointer"
+            <a 
+              key={index}
+              href={post.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group bg-surface rounded-2xl border border-slate-800 overflow-hidden hover:border-accent hover:shadow-2xl hover:shadow-accent/5 transition-all duration-300 hover:-translate-y-2 block h-full flex flex-col"
             >
-              <div className="h-48 overflow-hidden relative">
+              <div className="h-48 overflow-hidden relative shrink-0">
                 <div className="absolute inset-0 bg-slate-900/20 group-hover:bg-transparent transition-all z-10"></div>
                 <img 
                   src={post.image} 
@@ -121,19 +131,21 @@ const Blog: React.FC = () => {
                 </div>
               </div>
               
-              <div className="p-8">
+              <div className="p-8 flex flex-col flex-grow">
                 <span className="text-slate-500 text-xs font-bold block mb-3">{post.date}</span>
                 <h3 className="text-xl font-bold text-white mb-4 group-hover:text-accent transition-colors leading-tight">
                   {post.title}
                 </h3>
-                <p className="text-slate-400 text-sm leading-relaxed mb-6">
+                <p className="text-slate-400 text-sm leading-relaxed mb-6 flex-grow">
                   {post.excerpt}
                 </p>
-                <span className="inline-flex items-center gap-2 text-accent text-sm font-bold group-hover:gap-3 transition-all">
-                  Ler Artigo Completo <IconArrowRight className="w-4 h-4" />
-                </span>
+                <div className="mt-auto">
+                  <span className="inline-flex items-center gap-2 text-accent text-sm font-bold group-hover:gap-3 transition-all">
+                    Ler Artigo no LinkedIn <IconArrowRight className="w-4 h-4" />
+                  </span>
+                </div>
               </div>
-            </article>
+            </a>
           ))}
         </div>
 
