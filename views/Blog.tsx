@@ -1,7 +1,40 @@
-import React from 'react';
-import { IconArrowRight, IconAtom } from '../components/Icons';
+import React, { useState } from 'react';
+import { IconArrowRight, IconAtom, IconCheck, IconLoader } from '../components/Icons';
+import { NEWSLETTER_SCRIPT_URL } from '../constants';
 
 const Blog: React.FC = () => {
+  // Newsletter Logic for Blog Page
+  const [email, setEmail] = useState('');
+  const [subscribed, setSubscribed] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleSubscribe = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!email) return;
+
+    setIsLoading(true);
+
+    try {
+      const formData = new FormData();
+      formData.append('email', email.trim());
+
+      await fetch(NEWSLETTER_SCRIPT_URL, {
+        method: 'POST',
+        body: formData,
+        mode: 'no-cors'
+      });
+
+      setSubscribed(true);
+      setEmail('');
+      setTimeout(() => setSubscribed(false), 5000);
+    } catch (error) {
+      console.error('Erro ao salvar email:', error);
+      alert('Ocorreu um erro ao se inscrever. Tente novamente.');
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   const posts = [
     {
       category: "Inteligência Artificial",
@@ -104,17 +137,46 @@ const Blog: React.FC = () => {
           ))}
         </div>
 
-        {/* Newsletter CTA Inline */}
+        {/* Newsletter CTA Inline Form */}
         <div className="mt-20 p-12 bg-gradient-to-r from-slate-900 to-primary rounded-3xl border border-slate-800 text-center relative overflow-hidden">
            <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-10"></div>
-           <h3 className="text-2xl font-bold text-white mb-4 relative z-10">Não perca nenhuma tendência</h3>
-           <p className="text-slate-400 max-w-xl mx-auto mb-8 relative z-10">
-              Junte-se a mais de 500 líderes de tecnologia que recebem nossa curadoria semanal.
-           </p>
-           {/* O formulário de newsletter principal está na Home, aqui é apenas um link de âncora ou visual */}
-           <a href="#newsletter" className="inline-block relative z-10 px-8 py-3 bg-white text-primary font-bold rounded-xl hover:bg-slate-200 transition-colors">
-              Inscrever-se na Newsletter
-           </a>
+           <div className="relative z-10">
+             <h3 className="text-2xl font-bold text-white mb-4">Não perca nenhuma tendência</h3>
+             <p className="text-slate-400 max-w-xl mx-auto mb-8">
+                Junte-se a mais de 500 líderes de tecnologia que recebem nossa curadoria semanal.
+             </p>
+
+             <div className="max-w-md mx-auto">
+               {subscribed ? (
+                  <div className="bg-tech/10 border border-tech/30 p-4 rounded-xl flex items-center justify-center gap-2 text-tech font-bold animate-fade-in">
+                    <IconCheck className="w-5 h-5" /> Inscrito com sucesso!
+                  </div>
+               ) : (
+                  <form onSubmit={handleSubscribe} className="flex flex-col gap-3">
+                    <input 
+                      type="email" 
+                      required
+                      placeholder="Seu e-mail corporativo" 
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      className="w-full px-6 py-4 bg-slate-950 border border-slate-600 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/20 transition-all disabled:opacity-50"
+                      disabled={isLoading}
+                    />
+                    <button 
+                      type="submit" 
+                      disabled={isLoading}
+                      className="w-full px-6 py-4 bg-white text-primary hover:bg-slate-200 font-bold rounded-xl transition-all disabled:opacity-70 flex justify-center items-center shadow-lg"
+                    >
+                      {isLoading ? (
+                          <IconLoader className="w-5 h-5 animate-spin text-primary" />
+                      ) : (
+                          "Inscrever-se Gratuitamente"
+                      )}
+                    </button>
+                  </form>
+               )}
+             </div>
+           </div>
         </div>
       </div>
     </div>

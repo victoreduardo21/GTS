@@ -2,7 +2,7 @@ import { ServiceItem, SystemItem } from './types';
 
 export const NEWSLETTER_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzzFfeQDGBRZRw2Hi1gJ2aD6fO6-pTarMhqUxJ3prTzP-TZ5vZmY29TlxYARTzppu-8/exec';
 
-// URL exclusiva para o script de depoimentos
+// URL exclusiva para o script de depoimentos (Atualizada)
 export const TESTIMONIAL_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyxT43DfLXz-xhvOWDq4ZjiJgNHPxOvUI_IBqS8fPW-d1zpzco_hSojCKzKUeVoMm_5/exec';
 
 export const SERVICES: ServiceItem[] = [
