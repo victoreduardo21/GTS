@@ -2,7 +2,8 @@ export enum ViewState {
   HOME = 'home',
   SERVICES = 'services',
   SYSTEMS = 'systems',
-  CONTACT = 'contact'
+  CONTACT = 'contact',
+  BLOG = 'blog'
 }
 
 export interface LeadAnalysis {

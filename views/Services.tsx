@@ -1,6 +1,6 @@
 import React from 'react';
 import { SERVICES } from '../constants';
-import { IconCode, IconCloud, IconCpu, IconShield } from '../components/Icons';
+import { IconCode, IconCloud, IconCpu, IconShield, IconArrowRight, IconWhatsApp } from '../components/Icons';
 
 const getIcon = (name: string) => {
   switch (name) {
@@ -14,15 +14,20 @@ const getIcon = (name: string) => {
 
 const Services: React.FC = () => {
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col bg-primary">
       {/* Services Header */}
-      <div className="bg-slate-900 py-20 border-b border-slate-800">
+      <div className="bg-surface py-20 border-b border-slate-800">
          <div className="container mx-auto px-4">
             <div className="text-center max-w-3xl mx-auto">
-               <span className="text-accent font-bold tracking-widest text-sm uppercase mb-2 block">Expertise Técnica</span>
-               <h2 className="text-5xl font-bold text-white mb-6">Soluções 360º</h2>
+               <span className="text-accent font-bold tracking-widest text-xs uppercase mb-4 block bg-accent/10 w-fit mx-auto px-3 py-1 rounded-full">
+                  Nossas Especialidades
+               </span>
+               <h2 className="text-4xl md:text-6xl font-extrabold text-white mb-6">
+                  Tecnologia que <br/>
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent to-purple-500">Gera Receita</span>
+               </h2>
                <p className="text-slate-400 text-lg leading-relaxed">
-                 Na GTS, não entregamos apenas código. Entregamos ecossistemas digitais completos que sustentam a operação do seu negócio.
+                 Não criamos apenas software. Criamos ativos digitais que automatizam sua empresa, reduzem custos e aumentam suas vendas.
                </p>
             </div>
          </div>
@@ -34,49 +39,67 @@ const Services: React.FC = () => {
           {SERVICES.map((service, index) => (
             <div 
               key={index}
-              className="group p-10 rounded-3xl bg-slate-800 border border-slate-700 hover:border-accent hover:bg-slate-800/80 transition-all shadow-2xl hover:shadow-accent/20 hover:-translate-y-2"
+              className="group p-10 rounded-3xl bg-surface border border-slate-800 hover:border-accent hover:bg-slate-900 transition-all shadow-2xl hover:shadow-accent/10 hover:-translate-y-2 relative overflow-hidden"
             >
-              <div className="mb-8 p-5 bg-slate-900 rounded-2xl inline-flex items-center justify-center group-hover:scale-110 transition-transform duration-300 border border-slate-700">
+              <div className="mb-8 p-5 bg-primary rounded-2xl inline-flex items-center justify-center border border-slate-800 group-hover:scale-110 transition-transform duration-300">
                 {getIcon(service.icon)}
               </div>
               <h3 className="text-2xl font-bold text-white mb-4 group-hover:text-accent transition-colors">{service.title}</h3>
-              <p className="text-slate-400 leading-relaxed text-lg">
+              <p className="text-slate-400 leading-relaxed text-lg mb-8">
                 {service.description}
               </p>
+              
               <a 
-                href={`https://wa.me/5513996104848?text=Olá, tenho interesse em saber mais sobre o serviço: ${encodeURIComponent(service.title)}`}
+                href={`https://wa.me/5513996104848?text=Olá, tenho interesse no serviço de ${encodeURIComponent(service.title)}. Como funciona?`}
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="mt-6 pt-6 border-t border-slate-700/50 flex items-center text-accent font-medium opacity-0 group-hover:opacity-100 transition-opacity translate-y-2 group-hover:translate-y-0 cursor-pointer"
+                className="inline-flex items-center gap-2 text-white font-bold bg-accent hover:bg-accentHover px-6 py-3 rounded-xl transition-all shadow-lg shadow-accent/20"
               >
-                 <span>Saber mais &rarr;</span>
+                 Solicitar Proposta <IconArrowRight className="w-4 h-4" />
               </a>
             </div>
           ))}
         </div>
       </div>
 
+      {/* CTA Strip */}
+      <div className="bg-accent text-white py-12">
+        <div className="container mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-6">
+           <div className="text-center md:text-left">
+              <h3 className="text-2xl font-bold">Não sabe qual a melhor solução?</h3>
+              <p className="text-blue-100">Nossos consultores analisam seu negócio gratuitamente.</p>
+           </div>
+           <a 
+             href="https://wa.me/5513996104848?text=Preciso de ajuda para escolher a melhor tecnologia para minha empresa."
+             target="_blank"
+             rel="noopener noreferrer"
+             className="bg-white text-accent font-bold px-8 py-3 rounded-xl hover:bg-slate-100 transition-colors shadow-lg flex items-center gap-2"
+           >
+             <IconWhatsApp className="w-5 h-5" />
+             Consultoria Grátis
+           </a>
+        </div>
+      </div>
+
       {/* Our Process Section */}
-      <div className="bg-slate-950 py-24 relative overflow-hidden">
-         <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-5"></div>
+      <div className="bg-primary py-24 relative overflow-hidden">
          <div className="container mx-auto px-4 relative z-10">
             <div className="mb-16 text-center">
-               <h2 className="text-3xl font-bold text-white">O Fluxo GTS de Desenvolvimento</h2>
-               <p className="text-slate-500 mt-2">Como transformamos requisitos em realidade.</p>
+               <h2 className="text-3xl font-bold text-white">Metodologia GTS</h2>
+               <p className="text-slate-500 mt-2">Processo transparente, do início ao fim.</p>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-4 gap-8 relative">
-               {/* Connecting Line (Desktop) */}
                <div className="hidden md:block absolute top-12 left-0 w-full h-0.5 bg-slate-800 z-0"></div>
 
                {[
-                  { step: "01", title: "Discovery", desc: "Mapeamento profundo de dores e requisitos técnicos." },
-                  { step: "02", title: "Architecture", desc: "Design de sistemas escaláveis e prova de conceito." },
-                  { step: "03", title: "Build", desc: "Desenvolvimento ágil com sprints semanais e CI/CD." },
-                  { step: "04", title: "Scale", desc: "Deploy, monitoramento 24/7 e otimização contínua." },
+                  { step: "01", title: "Entendimento", desc: "Mapeamos suas dores e objetivos de negócio." },
+                  { step: "02", title: "Prototipagem", desc: "Você aprova o visual antes de escrevermos o código." },
+                  { step: "03", title: "Desenvolvimento", desc: "Sprints semanais com entregas contínuas." },
+                  { step: "04", title: "Lançamento", desc: "Deploy seguro e treinamento da sua equipe." },
                ].map((item, i) => (
-                  <div key={i} className="relative z-10 bg-slate-950 md:bg-transparent">
-                     <div className="w-24 h-24 mx-auto bg-slate-900 border-4 border-slate-800 rounded-full flex items-center justify-center text-2xl font-bold text-white mb-6 shadow-xl group hover:border-accent transition-colors">
+                  <div key={i} className="relative z-10 bg-primary md:bg-transparent">
+                     <div className="w-24 h-24 mx-auto bg-surface border-4 border-slate-800 rounded-full flex items-center justify-center text-2xl font-bold text-white mb-6 shadow-xl group hover:border-accent transition-colors">
                         <span className="group-hover:text-accent">{item.step}</span>
                      </div>
                      <div className="text-center px-4">

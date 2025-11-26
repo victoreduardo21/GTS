@@ -1,0 +1,124 @@
+import React from 'react';
+import { IconArrowRight, IconAtom } from '../components/Icons';
+
+const Blog: React.FC = () => {
+  const posts = [
+    {
+      category: "Inteligência Artificial",
+      date: "12 OUT 2023",
+      title: "Como a IA Generativa está redefinindo o suporte ao cliente",
+      excerpt: "Empresas que adotaram chatbots baseados em LLMs viram uma redução de 70% no tempo de resposta. Entenda a arquitetura por trás dessa revolução.",
+      image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&q=80&w=800"
+    },
+    {
+      category: "Cloud Computing",
+      date: "05 SET 2023",
+      title: "Migração para Nuvem: Estratégias para reduzir custos em 2024",
+      excerpt: "Não basta apenas 'ir para a nuvem'. A otimização de recursos e o uso de arquiteturas serverless são a chave para a eficiência financeira.",
+      image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80&w=800"
+    },
+    {
+      category: "Segurança",
+      date: "28 AGO 2023",
+      title: "Zero Trust: Por que o modelo tradicional de segurança falhou",
+      excerpt: "No mundo do trabalho híbrido, o perímetro de segurança desapareceu. Veja como proteger seus ativos digitais com a metodologia Zero Trust.",
+      image: "https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?auto=format&fit=crop&q=80&w=800"
+    },
+    {
+      category: "DevOps",
+      date: "15 AGO 2023",
+      title: "Acelere seu Time-to-Market com CI/CD Automatizado",
+      excerpt: "Pipelines de deploy automatizados não são luxo, são necessidade. Como implementamos entregas contínuas em grandes corporações.",
+      image: "https://images.unsplash.com/photo-1618401471353-b98afee0b2eb?auto=format&fit=crop&q=80&w=800"
+    },
+    {
+      category: "Fintech",
+      date: "02 AGO 2023",
+      title: "Blockchain além das Criptomoedas: Contratos Inteligentes",
+      excerpt: "Como instituições financeiras estão usando Smart Contracts para automatizar auditorias e garantir transparência total.",
+      image: "https://images.unsplash.com/photo-1639322537228-f710d846310a?auto=format&fit=crop&q=80&w=800"
+    },
+    {
+      category: "Tendências",
+      date: "20 JUL 2023",
+      title: "O Futuro do Desenvolvimento de Software: Low-Code vs Pro-Code",
+      excerpt: "Quando usar plataformas de desenvolvimento rápido e quando investir em código proprietário de alta performance.",
+      image: "https://images.unsplash.com/photo-1555099962-4199c345e5dd?auto=format&fit=crop&q=80&w=800"
+    }
+  ];
+
+  return (
+    <div className="min-h-screen bg-primary">
+      {/* Header */}
+      <div className="bg-surface py-20 border-b border-slate-800 relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-96 h-96 bg-accent/10 rounded-full blur-[100px] pointer-events-none"></div>
+        <div className="container mx-auto px-4 relative z-10 text-center">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-800 border border-slate-700 text-accent text-xs font-bold uppercase tracking-widest mb-6">
+            <IconAtom className="w-4 h-4" />
+            Conteúdo Exclusivo
+          </div>
+          <h1 className="text-4xl md:text-6xl font-extrabold text-white mb-6">
+            Insights GTS
+          </h1>
+          <p className="text-xl text-slate-400 max-w-2xl mx-auto leading-relaxed">
+            Tendências de tecnologia, inovação e engenharia de software para líderes que moldam o futuro.
+          </p>
+        </div>
+      </div>
+
+      {/* Articles Grid */}
+      <div className="container mx-auto px-4 py-20">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {posts.map((post, index) => (
+            <article 
+              key={index} 
+              className="group bg-surface rounded-2xl border border-slate-800 overflow-hidden hover:border-accent hover:shadow-2xl hover:shadow-accent/5 transition-all duration-300 hover:-translate-y-2 cursor-pointer"
+            >
+              <div className="h-48 overflow-hidden relative">
+                <div className="absolute inset-0 bg-slate-900/20 group-hover:bg-transparent transition-all z-10"></div>
+                <img 
+                  src={post.image} 
+                  alt={post.title} 
+                  className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700"
+                />
+                <div className="absolute top-4 left-4 z-20">
+                  <span className="px-3 py-1 bg-primary/90 backdrop-blur text-xs font-bold text-white rounded uppercase tracking-wider">
+                    {post.category}
+                  </span>
+                </div>
+              </div>
+              
+              <div className="p-8">
+                <span className="text-slate-500 text-xs font-bold block mb-3">{post.date}</span>
+                <h3 className="text-xl font-bold text-white mb-4 group-hover:text-accent transition-colors leading-tight">
+                  {post.title}
+                </h3>
+                <p className="text-slate-400 text-sm leading-relaxed mb-6">
+                  {post.excerpt}
+                </p>
+                <span className="inline-flex items-center gap-2 text-accent text-sm font-bold group-hover:gap-3 transition-all">
+                  Ler Artigo Completo <IconArrowRight className="w-4 h-4" />
+                </span>
+              </div>
+            </article>
+          ))}
+        </div>
+
+        {/* Newsletter CTA Inline */}
+        <div className="mt-20 p-12 bg-gradient-to-r from-slate-900 to-primary rounded-3xl border border-slate-800 text-center relative overflow-hidden">
+           <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-10"></div>
+           <h3 className="text-2xl font-bold text-white mb-4 relative z-10">Não perca nenhuma tendência</h3>
+           <p className="text-slate-400 max-w-xl mx-auto mb-8 relative z-10">
+              Junte-se a mais de 500 líderes de tecnologia que recebem nossa curadoria semanal.
+           </p>
+           {/* O formulário de newsletter principal está na Home, aqui é apenas um link de âncora ou visual */}
+           <a href="#newsletter" className="inline-block relative z-10 px-8 py-3 bg-white text-primary font-bold rounded-xl hover:bg-slate-200 transition-colors">
+              Inscrever-se na Newsletter
+           </a>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Blog;

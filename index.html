@@ -3,9 +3,11 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>GTS - Global Tech Software</title>
+    <title>GTS - Desenvolvimento de Software e IA Global</title>
+    <meta name="description" content="A GTS (Global Tech Software) desenvolve soluções de alta performance: Sites, Apps, Sistemas ERP e Inteligência Artificial. Transforme seu negócio hoje.">
+    
     <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-YDCYKVPML9"></script>
@@ -14,7 +16,8 @@
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
 
-      gtag('config', 'G-YDCYKVPML9');
+      // Configuração para SPA (Single Page Application)
+      gtag('config', 'G-YDCYKVPML9', { 'send_page_view': false });
     </script>
 
     <!-- Fallback for Tailwind CDN in development if build step is skipped -->
@@ -24,19 +27,31 @@
         theme: {
           extend: {
             colors: {
-              primary: '#0f172a',
-              secondary: '#1e293b',
-              accent: '#3b82f6',
-              accentHover: '#2563eb',
-              tech: '#10b981',
+              primary: '#0B1120',
+              secondary: '#1E293B',
+              accent: '#3B82F6',
+              accentHover: '#2563EB',
+              tech: '#10B981',
+              surface: '#111827',
             },
             fontFamily: {
               sans: ['Inter', 'sans-serif'],
             },
             animation: {
-              'spin-slow': 'spin 10s linear infinite',
-              'fade-in': 'fadeIn 0.5s ease-out forwards',
+              'spin-slow': 'spin 12s linear infinite',
+              'fade-in': 'fadeIn 0.6s ease-out forwards',
+              'slide-up': 'slideUp 0.8s ease-out forwards',
             },
+            keyframes: {
+              fadeIn: {
+                '0%': { opacity: '0' },
+                '100%': { opacity: '1' },
+              },
+              slideUp: {
+                '0%': { opacity: '0', transform: 'translateY(40px)' },
+                '100%': { opacity: '1', transform: 'translateY(0)' },
+              }
+            }
           },
         },
       }
@@ -55,7 +70,7 @@
 }
 </script>
   </head>
-  <body class="bg-primary text-slate-100 antialiased">
+  <body class="bg-primary text-slate-100 antialiased selection:bg-accent selection:text-white">
     <div id="root"></div>
     <!-- Entry point for Vite Build -->
     <script type="module" src="./index.tsx"></script>

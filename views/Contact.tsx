@@ -78,8 +78,14 @@ const Contact: React.FC = () => {
                 <div className="space-y-4">
                    <div className="flex flex-col md:flex-row md:items-center justify-between p-4 bg-slate-950/50 rounded-xl border border-slate-800/50">
                       <div>
-                         <span className="text-xs text-slate-500 uppercase font-bold tracking-wider">Contato Geral</span>
-                         <a href="mailto:gtsglobaltech01@gmail.com" className="block text-white font-mono hover:text-accent transition-colors">gtsglobaltech01@gmail.com</a>
+                         <span className="text-xs text-slate-500 uppercase font-bold tracking-wider">Vendas & Comercial</span>
+                         <a href="mailto:sales@gts-software.com" className="block text-white font-mono hover:text-accent transition-colors">sales@gts-software.com</a>
+                      </div>
+                   </div>
+                   <div className="flex flex-col md:flex-row md:items-center justify-between p-4 bg-slate-950/50 rounded-xl border border-slate-800/50">
+                      <div>
+                         <span className="text-xs text-slate-500 uppercase font-bold tracking-wider">Financeiro & Admin</span>
+                         <a href="mailto:financeiro@gts-software.com" className="block text-white font-mono hover:text-accent transition-colors">financeiro@gts-software.com</a>
                       </div>
                    </div>
                 </div>
@@ -115,30 +121,6 @@ const Contact: React.FC = () => {
 
           </div>
         </div>
-
-        {/* FAQ Section */}
-        <div className="max-w-4xl mx-auto mt-24">
-           <h3 className="text-2xl font-bold text-white text-center mb-12">Perguntas Frequentes</h3>
-           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="bg-slate-900/50 p-6 rounded-2xl border border-slate-800">
-                 <h4 className="font-bold text-white mb-2">Qual o prazo médio de desenvolvimento?</h4>
-                 <p className="text-slate-400 text-sm">Depende da complexidade. MVPs podem ser entregues em 4 semanas, enquanto sistemas ERP complexos levam de 3 a 6 meses.</p>
-              </div>
-              <div className="bg-slate-900/50 p-6 rounded-2xl border border-slate-800">
-                 <h4 className="font-bold text-white mb-2">Vocês atendem fora do Brasil?</h4>
-                 <p className="text-slate-400 text-sm">Sim. A GTS é uma empresa Global. Temos estrutura para receber pagamentos internacionais e atender em múltiplos fusos horários.</p>
-              </div>
-              <div className="bg-slate-900/50 p-6 rounded-2xl border border-slate-800">
-                 <h4 className="font-bold text-white mb-2">Como funciona o suporte?</h4>
-                 <p className="text-slate-400 text-sm">Oferecemos garantia de 3 a 12 meses após a entrega. Também temos planos de manutenção mensal (SLA) para evolução contínua.</p>
-              </div>
-              <div className="bg-slate-900/50 p-6 rounded-2xl border border-slate-800">
-                 <h4 className="font-bold text-white mb-2">Trabalham com qual tecnologia?</h4>
-                 <p className="text-slate-400 text-sm">Somos especialistas em JavaScript (React, Node.js), Python (IA/Data), Cloud (Google/AWS) e Mobile Nativo.</p>
-              </div>
-           </div>
-        </div>
-
       </div>
     </div>
   );
