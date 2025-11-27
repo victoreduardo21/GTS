@@ -1,17 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { ViewState } from '../types';
-import { NEWSLETTER_SCRIPT_URL, TESTIMONIAL_SCRIPT_URL } from '../constants';
-import { IconCheck, IconRocket, IconGlobe, IconShield, IconCloud, IconCpu, IconTruck, IconBuilding, IconChart, IconArrowRight, IconWhatsApp, IconStar, IconLoader, IconAtom } from '../components/Icons';
+import { NEWSLETTER_SCRIPT_URL } from '../constants';
+import { IconCheck, IconRocket, IconGlobe, IconCloud, IconCpu, IconArrowRight, IconWhatsApp, IconBuilding, IconTruck, IconChart, IconAtom, IconLoader } from '../components/Icons';
 
 interface HomeProps {
   onChangeView: (view: ViewState) => void;
-}
-
-interface TestimonialData {
-  name: string;
-  role: string;
-  text: string;
-  stars: number;
 }
 
 const Home: React.FC<HomeProps> = ({ onChangeView }) => {
@@ -19,37 +12,6 @@ const Home: React.FC<HomeProps> = ({ onChangeView }) => {
   const [email, setEmail] = useState('');
   const [subscribed, setSubscribed] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-
-  // Testimonial Form States
-  const [tName, setTName] = useState('');
-  const [tCompany, setTCompany] = useState('');
-  const [tMsg, setTMsg] = useState('');
-  const [tRating, setTRating] = useState(5); // Default 5 stars
-  const [isTSending, setIsTSending] = useState(false);
-  const [tSent, setTSent] = useState(false);
-
-  // Dynamic Testimonials State
-  const [dbTestimonials, setDbTestimonials] = useState<TestimonialData[]>([]);
-
-  // Load Testimonials from Google Sheet on Mount
-  useEffect(() => {
-    const fetchTestimonials = async () => {
-      try {
-        const response = await fetch(TESTIMONIAL_SCRIPT_URL);
-        const data = await response.json();
-        
-        if (Array.isArray(data)) {
-          // Inverte para mostrar os mais recentes primeiro
-          setDbTestimonials(data.reverse());
-        }
-      } catch (error) {
-        console.error("Erro ao carregar depoimentos dinâmicos:", error);
-        // Falha silenciosa: se der erro, mostra apenas os estáticos
-      }
-    };
-
-    fetchTestimonials();
-  }, []);
 
   const handleSubscribe = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -78,42 +40,6 @@ const Home: React.FC<HomeProps> = ({ onChangeView }) => {
     }
   };
 
-  const handleTestimonialSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsTSending(true);
-
-    try {
-      const formData = new FormData();
-      formData.append('nome', tName);
-      formData.append('empresa', tCompany);
-      formData.append('mensagem', tMsg);
-      formData.append('nota', tRating.toString());
-
-      await fetch(TESTIMONIAL_SCRIPT_URL, {
-        method: 'POST',
-        body: formData,
-        mode: 'no-cors'
-      });
-
-      setTSent(true);
-      setTName('');
-      setTCompany('');
-      setTMsg('');
-      setTRating(5);
-      
-      // Opcional: Recarregar depoimentos após enviar (com delay para o Google processar)
-      setTimeout(() => {
-         // Lógica simples de refresh poderia ser implementada aqui
-      }, 2000);
-
-      setTimeout(() => setTSent(false), 5000);
-    } catch (error) {
-      alert('Erro ao enviar depoimento.');
-    } finally {
-      setIsTSending(false);
-    }
-  };
-
   const developments = [
     {
       category: "Inteligência Artificial",
@@ -134,30 +60,6 @@ const Home: React.FC<HomeProps> = ({ onChangeView }) => {
       icon: <IconCloud className="w-8 h-8 text-accent" />
     }
   ];
-
-  const staticTestimonials = [
-    {
-      name: "Roberto Almeida",
-      role: "CEO, FinLogística",
-      text: "A GTS transformou nossa operação logística. O sistema de rastreamento reduziu nossos custos em 30% no primeiro mês.",
-      stars: 5
-    },
-    {
-      name: "Juliana Mendes",
-      role: "Diretora, MedTech Solutions",
-      text: "Profissionalismo internacional. Entregaram o aplicativo antes do prazo e com uma qualidade de código impecável.",
-      stars: 5
-    },
-    {
-      name: "Carlos Eduardo",
-      role: "Fundador, Varejo Express",
-      text: "Estávamos perdendo vendas por causa de um site lento. A GTS refez tudo e nossa conversão dobrou.",
-      stars: 5
-    }
-  ];
-
-  // Combina os depoimentos vindos da planilha com os estáticos
-  const allTestimonials = [...dbTestimonials, ...staticTestimonials];
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -281,100 +183,6 @@ const Home: React.FC<HomeProps> = ({ onChangeView }) => {
                <IconWhatsApp className="w-5 h-5" />
                Falar com Engenheiro Agora
             </a>
-         </div>
-      </section>
-
-      {/* Social Proof / Testimonials */}
-      <section className="py-24 bg-primary border-b border-slate-800">
-         <div className="container mx-auto px-4">
-            <div className="text-center mb-16">
-               <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">O Que Dizem Nossos Parceiros</h2>
-               <p className="text-slate-400">Resultados reais para empresas que exigem excelência.</p>
-            </div>
-            
-            {/* Grid dinâmico que exibe os depoimentos da planilha */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
-               {allTestimonials.map((t, i) => (
-                  <div key={i} className="bg-surface p-8 rounded-2xl border border-slate-800 relative animate-fade-in">
-                     <div className="flex gap-1 mb-4 text-yellow-500">
-                        {[...Array(t.stars || 5)].map((_, idx) => <IconStar key={idx} className="w-5 h-5 fill-current" />)}
-                     </div>
-                     <p className="text-slate-300 italic mb-6 leading-relaxed">"{t.text}"</p>
-                     <div className="flex items-center gap-4">
-                        <div className="w-10 h-10 rounded-full bg-gradient-to-br from-slate-700 to-slate-800 flex items-center justify-center font-bold text-white">
-                           {(t.name || "A").charAt(0).toUpperCase()}
-                        </div>
-                        <div>
-                           <h4 className="text-white font-bold text-sm">{t.name}</h4>
-                           <p className="text-slate-500 text-xs uppercase tracking-wide">{t.role}</p>
-                        </div>
-                     </div>
-                  </div>
-               ))}
-            </div>
-
-            {/* Testimonial Form */}
-            <div className="max-w-2xl mx-auto bg-surface border border-slate-800 rounded-2xl p-8">
-              <h3 className="text-2xl font-bold text-white mb-2 text-center">É nosso parceiro?</h3>
-              <p className="text-slate-400 text-center mb-6">Deixe seu depoimento e apareça em nosso site.</p>
-              
-              {tSent ? (
-                <div className="bg-tech/10 border border-tech/30 p-4 rounded-xl flex items-center justify-center gap-2 text-tech font-bold animate-fade-in">
-                  <IconCheck className="w-5 h-5" /> Depoimento enviado com sucesso!
-                </div>
-              ) : (
-                <form onSubmit={handleTestimonialSubmit} className="space-y-4">
-                  {/* Star Rating Selector */}
-                  <div className="flex justify-center mb-4 gap-2">
-                     {[1, 2, 3, 4, 5].map((star) => (
-                        <button
-                           key={star}
-                           type="button"
-                           onClick={() => setTRating(star)}
-                           className={`transition-all transform hover:scale-110 focus:outline-none ${star <= tRating ? 'text-yellow-500' : 'text-slate-700'}`}
-                        >
-                           <IconStar className="w-8 h-8 fill-current" />
-                        </button>
-                     ))}
-                  </div>
-
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <input 
-                      type="text" 
-                      placeholder="Seu Nome" 
-                      required
-                      value={tName}
-                      onChange={(e) => setTName(e.target.value)}
-                      className="bg-primary border border-slate-700 rounded-lg p-3 text-white focus:border-accent outline-none"
-                    />
-                    <input 
-                      type="text" 
-                      placeholder="Sua Empresa / Cargo" 
-                      required
-                      value={tCompany}
-                      onChange={(e) => setTCompany(e.target.value)}
-                      className="bg-primary border border-slate-700 rounded-lg p-3 text-white focus:border-accent outline-none"
-                    />
-                  </div>
-                  <textarea 
-                    placeholder="Escreva seu depoimento..." 
-                    required
-                    rows={3}
-                    value={tMsg}
-                    onChange={(e) => setTMsg(e.target.value)}
-                    className="w-full bg-primary border border-slate-700 rounded-lg p-3 text-white focus:border-accent outline-none resize-none"
-                  ></textarea>
-                  <button 
-                    type="submit" 
-                    disabled={isTSending}
-                    className="w-full bg-slate-800 hover:bg-slate-700 text-white font-bold py-3 rounded-lg transition-colors flex justify-center items-center gap-2"
-                  >
-                    {isTSending ? <IconLoader className="animate-spin w-5 h-5" /> : 'Enviar Depoimento'}
-                  </button>
-                </form>
-              )}
-            </div>
-
          </div>
       </section>
 
