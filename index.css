@@ -4,19 +4,19 @@
 
 @layer base {
   body {
-    @apply bg-primary text-slate-100 antialiased selection:bg-accent selection:text-white font-sans;
+    @apply bg-primary text-slate-900 antialiased selection:bg-accent selection:text-white font-sans;
   }
 }
 
-/* Custom scrollbar for the "spreadsheet" feel */
+/* Custom scrollbar */
 .spreadsheet-scroll::-webkit-scrollbar {
   height: 8px;
   width: 8px;
 }
 .spreadsheet-scroll::-webkit-scrollbar-track {
-  background: #1e293b;
+  background: #f1f5f9;
 }
 .spreadsheet-scroll::-webkit-scrollbar-thumb {
-  background: #475569;
+  background: #cbd5e1;
   border-radius: 4px;
 }

@@ -7,12 +7,12 @@ export default {
   theme: {
     extend: {
       colors: {
-        primary: '#0B1120', // Mais escuro e profundo
-        secondary: '#1E293B',
-        accent: '#3B82F6', // Azul elétrico vibrante
-        accentHover: '#2563EB',
-        tech: '#10B981', // Verde Tech
-        surface: '#111827', // Card backgrounds
+        primary: '#F8FAFC', // Slate 50 (Fundo Geral - Quase branco)
+        secondary: '#F1F5F9', // Slate 100 (Seções secundárias)
+        accent: '#2563EB', // Blue 600 (Azul forte para destaque no branco)
+        accentHover: '#1D4ED8', // Blue 700
+        tech: '#059669', // Emerald 600 (Verde mais legível no branco)
+        surface: '#FFFFFF', // White (Cartões e Elementos flutuantes)
       },
       fontFamily: {
         sans: ['Inter', 'sans-serif'],

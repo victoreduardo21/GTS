@@ -14,19 +14,19 @@ const getIcon = (name: string) => {
 
 const Services: React.FC = () => {
   return (
-    <div className="min-h-screen flex flex-col bg-primary">
+    <div className="min-h-screen flex flex-col bg-white">
       {/* Services Header */}
-      <div className="bg-surface py-20 border-b border-slate-800">
+      <div className="bg-slate-50 py-20 border-b border-slate-200">
          <div className="container mx-auto px-4">
             <div className="text-center max-w-3xl mx-auto">
-               <span className="text-accent font-bold tracking-widest text-xs uppercase mb-4 block bg-accent/10 w-fit mx-auto px-3 py-1 rounded-full">
+               <span className="text-accent font-bold tracking-widest text-xs uppercase mb-4 block bg-blue-50 w-fit mx-auto px-3 py-1 rounded-full border border-blue-100">
                   Nossas Especialidades
                </span>
-               <h2 className="text-4xl md:text-6xl font-extrabold text-white mb-6">
+               <h2 className="text-4xl md:text-6xl font-extrabold text-slate-900 mb-6">
                   Tecnologia que <br/>
-                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent to-purple-500">Gera Receita</span>
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent to-blue-600">Gera Receita</span>
                </h2>
-               <p className="text-slate-400 text-lg leading-relaxed">
+               <p className="text-slate-500 text-lg leading-relaxed">
                  Não criamos apenas software. Criamos ativos digitais que automatizam sua empresa, reduzem custos e aumentam suas vendas.
                </p>
             </div>
@@ -39,13 +39,13 @@ const Services: React.FC = () => {
           {SERVICES.map((service, index) => (
             <div 
               key={index}
-              className="group p-10 rounded-3xl bg-surface border border-slate-800 hover:border-accent hover:bg-slate-900 transition-all shadow-2xl hover:shadow-accent/10 hover:-translate-y-2 relative overflow-hidden"
+              className="group p-10 rounded-3xl bg-white border border-slate-200 hover:border-accent hover:bg-slate-50 transition-all shadow-xl shadow-slate-200/50 hover:shadow-accent/10 hover:-translate-y-2 relative overflow-hidden"
             >
-              <div className="mb-8 p-5 bg-primary rounded-2xl inline-flex items-center justify-center border border-slate-800 group-hover:scale-110 transition-transform duration-300">
+              <div className="mb-8 p-5 bg-blue-50 rounded-2xl inline-flex items-center justify-center border border-blue-100 group-hover:scale-110 transition-transform duration-300">
                 {getIcon(service.icon)}
               </div>
-              <h3 className="text-2xl font-bold text-white mb-4 group-hover:text-accent transition-colors">{service.title}</h3>
-              <p className="text-slate-400 leading-relaxed text-lg mb-8">
+              <h3 className="text-2xl font-bold text-slate-900 mb-4 group-hover:text-accent transition-colors">{service.title}</h3>
+              <p className="text-slate-500 leading-relaxed text-lg mb-8">
                 {service.description}
               </p>
               
@@ -82,15 +82,15 @@ const Services: React.FC = () => {
       </div>
 
       {/* Our Process Section */}
-      <div className="bg-primary py-24 relative overflow-hidden">
+      <div className="bg-white py-24 relative overflow-hidden">
          <div className="container mx-auto px-4 relative z-10">
             <div className="mb-16 text-center">
-               <h2 className="text-3xl font-bold text-white">Metodologia GTS</h2>
+               <h2 className="text-3xl font-bold text-slate-900">Metodologia GTS</h2>
                <p className="text-slate-500 mt-2">Processo transparente, do início ao fim.</p>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-4 gap-8 relative">
-               <div className="hidden md:block absolute top-12 left-0 w-full h-0.5 bg-slate-800 z-0"></div>
+               <div className="hidden md:block absolute top-12 left-0 w-full h-0.5 bg-slate-200 z-0"></div>
 
                {[
                   { step: "01", title: "Entendimento", desc: "Mapeamos suas dores e objetivos de negócio." },
@@ -98,12 +98,12 @@ const Services: React.FC = () => {
                   { step: "03", title: "Desenvolvimento", desc: "Sprints semanais com entregas contínuas." },
                   { step: "04", title: "Lançamento", desc: "Deploy seguro e treinamento da sua equipe." },
                ].map((item, i) => (
-                  <div key={i} className="relative z-10 bg-primary md:bg-transparent">
-                     <div className="w-24 h-24 mx-auto bg-surface border-4 border-slate-800 rounded-full flex items-center justify-center text-2xl font-bold text-white mb-6 shadow-xl group hover:border-accent transition-colors">
+                  <div key={i} className="relative z-10 bg-white md:bg-transparent">
+                     <div className="w-24 h-24 mx-auto bg-white border-4 border-slate-200 rounded-full flex items-center justify-center text-2xl font-bold text-slate-900 mb-6 shadow-lg group hover:border-accent transition-colors">
                         <span className="group-hover:text-accent">{item.step}</span>
                      </div>
                      <div className="text-center px-4">
-                        <h3 className="text-xl font-bold text-white mb-2">{item.title}</h3>
+                        <h3 className="text-xl font-bold text-slate-900 mb-2">{item.title}</h3>
                         <p className="text-slate-500 text-sm">{item.desc}</p>
                      </div>
                   </div>
