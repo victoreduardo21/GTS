@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { ViewState } from './types';
 import { IconMenu, IconX, IconAtom, IconFacebook, IconLinkedIn, IconInstagram, IconTwitter, IconMapPin, IconPhone, IconMail, IconClock, IconWhatsApp } from './components/Icons';
@@ -8,6 +9,7 @@ import Services from './views/Services';
 import Systems from './views/Systems';
 import Contact from './views/Contact';
 import Blog from './views/Blog';
+import Portfolio from './views/Portfolio';
 
 // Adicionar tipagem para o gtag
 declare global {
@@ -37,6 +39,7 @@ const App: React.FC = () => {
       case ViewState.HOME: return <Home onChangeView={setCurrentView} />;
       case ViewState.SERVICES: return <Services />;
       case ViewState.SYSTEMS: return <Systems />;
+      case ViewState.PORTFOLIO: return <Portfolio />;
       case ViewState.CONTACT: return <Contact />;
       case ViewState.BLOG: return <Blog />;
       default: return <Home onChangeView={setCurrentView} />;
@@ -47,6 +50,7 @@ const App: React.FC = () => {
     { label: 'Início', value: ViewState.HOME },
     { label: 'Serviços', value: ViewState.SERVICES },
     { label: 'Sistemas', value: ViewState.SYSTEMS },
+    { label: 'Portfólio', value: ViewState.PORTFOLIO },
     { label: 'Insights', value: ViewState.BLOG },
     { label: 'Contato', value: ViewState.CONTACT },
   ];
@@ -89,7 +93,7 @@ const App: React.FC = () => {
           </div>
 
           {/* Desktop Nav */}
-          <div className="hidden md:flex items-center gap-10">
+          <div className="hidden md:flex items-center gap-8">
             {navItems.map((item) => (
               <button
                 key={item.value}
@@ -108,7 +112,7 @@ const App: React.FC = () => {
               onClick={() => setCurrentView(ViewState.CONTACT)}
               className="px-6 py-2.5 bg-accent hover:bg-accentHover text-white text-sm font-bold rounded-lg transition-all shadow-lg shadow-accent/20 hover:shadow-xl hover:-translate-y-0.5"
             >
-              Falar com Especialista
+              Consultoria Grátis
             </button>
           </div>
 
@@ -183,28 +187,15 @@ const App: React.FC = () => {
               </div>
             </div>
 
-            {/* Column 2: Quick Contact */}
+            {/* Column 2: Links Rápidos */}
             <div>
-              <h4 className="text-slate-900 font-bold text-lg mb-6">Contato Rápido</h4>
-              <ul className="space-y-4">
-                <li>
-                  <a href="https://wa.me/5513996104848" className="flex items-center gap-3 text-slate-500 hover:text-accent transition-colors group">
-                    <IconPhone className="w-5 h-5 text-slate-400 group-hover:text-accent" />
-                    +55 (13) 99610-4848
-                  </a>
-                </li>
-                <li>
-                  <a href="mailto:sales@gts-software.com" className="flex items-center gap-3 text-slate-500 hover:text-accent transition-colors group">
-                    <IconMail className="w-5 h-5 text-slate-400 group-hover:text-accent" />
-                    sales@gts-software.com
-                  </a>
-                </li>
-                <li>
-                  <a href="mailto:financeiro@gts-software.com" className="flex items-center gap-3 text-slate-500 hover:text-accent transition-colors group">
-                    <IconMail className="w-5 h-5 text-slate-400 group-hover:text-accent" />
-                    financeiro@gts-software.com
-                  </a>
-                </li>
+              <h4 className="text-slate-900 font-bold text-lg mb-6">Navegação</h4>
+              <ul className="grid grid-cols-2 gap-4">
+                {navItems.map(item => (
+                  <li key={item.value}>
+                    <button onClick={() => setCurrentView(item.value)} className="text-slate-500 hover:text-accent transition-colors text-sm">{item.label}</button>
+                  </li>
+                ))}
               </ul>
             </div>
 
@@ -215,8 +206,8 @@ const App: React.FC = () => {
                   <IconClock className="w-5 h-5 text-slate-400 mt-1" />
                   <div>
                     <p className="font-medium text-slate-900">Segunda a Sexta</p>
-                    <p className="text-sm">09:00 - 18:00</p>
-                    <p className="text-xs text-tech mt-2 font-bold bg-tech/10 inline-block px-2 py-1 rounded">Suporte 24/7 (Contratos)</p>
+                    <p className="text-sm">09:00 - 18:00 (Brasília)</p>
+                    <p className="text-xs text-tech mt-2 font-bold bg-tech/10 inline-block px-2 py-1 rounded">Atendimento Global 24h para Suporte</p>
                   </div>
               </div>
             </div>

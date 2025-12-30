@@ -1,6 +1,7 @@
+
 import React, { useState } from 'react';
 import { ViewState } from '../types';
-import { NEWSLETTER_SCRIPT_URL } from '../constants';
+import { NEWSLETTER_SCRIPT_URL, PORTFOLIO_ITEMS } from '../constants';
 import { IconCheck, IconRocket, IconGlobe, IconCloud, IconCpu, IconArrowRight, IconWhatsApp, IconBuilding, IconTruck, IconChart, IconAtom, IconLoader } from '../components/Icons';
 
 interface HomeProps {
@@ -75,7 +76,7 @@ const Home: React.FC<HomeProps> = ({ onChangeView }) => {
         <div className="container mx-auto px-4 relative z-10 flex flex-col items-center text-center">
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-slate-200 shadow-sm mb-8 animate-fade-in">
             <span className="w-2 h-2 rounded-full bg-tech animate-ping"></span>
-            <span className="text-xs font-bold text-slate-600 uppercase tracking-wider">Disponível para Novos Projetos</span>
+            <span className="text-xs font-bold text-slate-600 uppercase tracking-wider">Disponível para Projetos Internacionais</span>
           </div>
 
           <h1 className="text-5xl md:text-7xl lg:text-8xl font-extrabold text-slate-900 mb-8 tracking-tight leading-[1.1] animate-slide-up">
@@ -84,53 +85,75 @@ const Home: React.FC<HomeProps> = ({ onChangeView }) => {
           </h1>
           
           <p className="text-lg md:text-2xl text-slate-500 max-w-3xl mx-auto mb-12 leading-relaxed animate-slide-up [animation-delay:200ms]">
-            Desenvolvemos sistemas, aplicativos e soluções de IA que colocam sua empresa anos à frente da concorrência. <strong>Segurança bancária, performance global.</strong>
+            A GTS desenvolve sistemas de missão crítica, aplicativos escaláveis e motores de IA para empresas globais. <strong>Performance, Segurança e Design Superior.</strong>
           </p>
           
           <div className="flex flex-col sm:flex-row gap-6 justify-center w-full sm:w-auto animate-slide-up [animation-delay:400ms]">
             <a 
-              href="https://wa.me/5513996104848?text=Olá, vi o site da GTS e quero transformar meu negócio. Gostaria de um orçamento."
+              href="https://wa.me/5513996104848?text=Olá, vi o portfólio da GTS e quero transformar meu negócio. Gostaria de um orçamento."
               target="_blank"
               rel="noopener noreferrer"
               className="group px-8 py-5 bg-accent hover:bg-accentHover text-white rounded-xl font-bold text-lg transition-all shadow-lg shadow-blue-500/30 hover:shadow-blue-500/40 hover:-translate-y-1 flex items-center justify-center gap-3"
             >
-              <IconRocket className="w-6 h-6 group-hover:animate-bounce" />
+              <IconRocket className="w-6 h-6 group-hover:bounce" />
               Solicitar Orçamento Agora
             </a>
             <button 
-              onClick={() => onChangeView(ViewState.SERVICES)}
+              onClick={() => onChangeView(ViewState.PORTFOLIO)}
               className="px-8 py-5 bg-white border border-slate-200 hover:border-slate-400 text-slate-700 hover:text-slate-900 rounded-xl font-bold text-lg transition-all shadow-sm hover:shadow-md flex items-center justify-center gap-2 group"
             >
-              Ver Nossas Soluções
+              Ver Portfólio de Cases
               <IconArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </button>
           </div>
         </div>
       </section>
 
-      {/* Tech Stack Ticker */}
-      <div className="bg-slate-50 py-6 border-y border-slate-200 overflow-hidden relative">
-        <div className="container mx-auto px-4 flex flex-col md:flex-row items-center justify-center gap-8">
-          <span className="text-slate-400 text-xs font-bold uppercase tracking-widest whitespace-nowrap">Tecnologias que usamos:</span>
-          <div className="flex gap-8 md:gap-12 flex-wrap justify-center opacity-70 grayscale hover:grayscale-0 transition-all duration-500">
-            {['REACT', 'NEXT.JS', 'PYTHON', 'GOOGLE CLOUD', 'AWS', 'DOCKER', 'GEMINI AI'].map(tech => (
-              <span key={tech} className="text-sm md:text-base font-bold text-slate-500 flex items-center gap-2">
-                <span className="w-1.5 h-1.5 bg-accent rounded-full"></span>
-                {tech}
-              </span>
+      {/* Portfólio Teaser (New Section) */}
+      <section className="py-24 bg-slate-50 border-y border-slate-200">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold text-slate-900 mb-4">Nossa Entrega em Números</h2>
+            <p className="text-slate-500 max-w-2xl mx-auto">Mais de 50 projetos entregues com 100% de disponibilidade. Conheça alguns de nossos cases ativos.</p>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+            {PORTFOLIO_ITEMS.slice(0, 4).map((project, idx) => (
+              <a 
+                key={idx}
+                href={project.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="bg-white p-4 rounded-2xl border border-slate-200 hover:border-accent hover:shadow-xl transition-all group overflow-hidden"
+              >
+                <div className="aspect-video mb-4 overflow-hidden rounded-xl">
+                  <img src={project.image} alt={project.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform" />
+                </div>
+                <h4 className="font-bold text-slate-900 mb-1">{project.title}</h4>
+                <p className="text-xs text-slate-400 font-bold uppercase tracking-wider">{project.category}</p>
+              </a>
             ))}
           </div>
+          
+          <div className="text-center">
+            <button 
+              onClick={() => onChangeView(ViewState.PORTFOLIO)}
+              className="text-accent font-bold hover:underline inline-flex items-center gap-2"
+            >
+              Ver Portfólio Completo <IconArrowRight className="w-4 h-4" />
+            </button>
+          </div>
         </div>
-      </div>
+      </section>
 
-      {/* O Que Desenvolvemos (Compacto & Direto) */}
+      {/* O Que Desenvolvemos */}
       <section className="py-24 bg-white relative">
          <div className="container mx-auto px-4">
             <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
                <div className="max-w-2xl">
                    <h2 className="text-accent font-bold uppercase tracking-widest text-sm mb-2">Expertise Técnica</h2>
                    <h3 className="text-4xl md:text-5xl font-bold text-slate-900">O Que Construímos</h3>
-                   <p className="text-slate-500 mt-4 text-lg">Soluções digitais completas. Do design da interface à infraestrutura na nuvem.</p>
+                   <p className="text-slate-500 mt-4 text-lg">Do MVP ao Enterprise Scale. Nossa stack é focada em durabilidade e escala.</p>
                </div>
                <button 
                   onClick={() => onChangeView(ViewState.SERVICES)}
@@ -169,10 +192,10 @@ const Home: React.FC<HomeProps> = ({ onChangeView }) => {
          <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 mix-blend-multiply"></div>
          <div className="container mx-auto px-4 relative z-10 text-center">
             <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
-               Seu projeto merece tecnologia de ponta
+               Pronto para subir o nível da sua tecnologia?
             </h2>
             <p className="text-blue-100 text-lg max-w-2xl mx-auto mb-8">
-               Não perca tempo com soluções amadoras. Fale diretamente com nossa equipe de engenharia e receba uma consultoria gratuita.
+               Fale agora com nosso time de engenharia e receba um diagnóstico técnico gratuito do seu projeto.
             </p>
             <a 
                href="https://wa.me/5513996104848?text=Olá, gostaria de uma consultoria gratuita para meu projeto de software."
@@ -181,7 +204,7 @@ const Home: React.FC<HomeProps> = ({ onChangeView }) => {
                className="inline-flex items-center justify-center px-8 py-4 bg-white text-blue-700 font-bold rounded-xl shadow-lg hover:bg-slate-50 transition-all transform hover:scale-105 gap-2"
             >
                <IconWhatsApp className="w-5 h-5" />
-               Falar com Engenheiro Agora
+               Falar com Especialista Agora
             </a>
          </div>
       </section>
@@ -189,94 +212,14 @@ const Home: React.FC<HomeProps> = ({ onChangeView }) => {
       {/* Clients Logos */}
       <section className="py-16 bg-slate-50 border-b border-slate-200">
          <div className="container mx-auto px-4">
-            <p className="text-center text-slate-400 font-bold uppercase tracking-widest text-xs mb-8">Empresas que confiam na GTS</p>
+            <p className="text-center text-slate-400 font-bold uppercase tracking-widest text-xs mb-8">Setores que atendemos com GTS Enterprise</p>
             <div className="flex flex-wrap justify-center gap-8 md:gap-16 opacity-50 grayscale hover:grayscale-0 transition-all text-slate-700">
-               <div className="flex items-center gap-2"><IconBuilding className="w-6 h-6"/> <span className="font-bold text-lg">Banco Alliance</span></div>
-               <div className="flex items-center gap-2"><IconTruck className="w-6 h-6"/> <span className="font-bold text-lg">TransLogística</span></div>
-               <div className="flex items-center gap-2"><IconGlobe className="w-6 h-6"/> <span className="font-bold text-lg">AgroSafra</span></div>
-               <div className="flex items-center gap-2"><IconChart className="w-6 h-6"/> <span className="font-bold text-lg">Grupo Varejo</span></div>
+               <div className="flex items-center gap-2"><IconBuilding className="w-6 h-6"/> <span className="font-bold text-lg">Fintechs</span></div>
+               <div className="flex items-center gap-2"><IconTruck className="w-6 h-6"/> <span className="font-bold text-lg">Logística</span></div>
+               <div className="flex items-center gap-2"><IconGlobe className="w-6 h-6"/> <span className="font-bold text-lg">Agrotech</span></div>
+               <div className="flex items-center gap-2"><IconChart className="w-6 h-6"/> <span className="font-bold text-lg">Varejo Digital</span></div>
             </div>
          </div>
-      </section>
-
-      {/* Insights GTS Link (Call to Action for Blog) */}
-      <section className="py-24 bg-white">
-         <div className="container mx-auto px-4 text-center">
-             <div className="inline-block p-3 rounded-full bg-blue-50 mb-6 border border-blue-100">
-                <IconAtom className="w-8 h-8 text-accent animate-spin-slow" />
-             </div>
-             <h2 className="text-4xl font-bold text-slate-900 mb-4">Insights GTS</h2>
-             <p className="text-slate-500 max-w-2xl mx-auto mb-8 text-lg">
-               Tendências de tecnologia e inovação para líderes. Acesse nossa área exclusiva de conteúdo.
-             </p>
-             <button 
-                onClick={() => onChangeView(ViewState.BLOG)}
-                className="px-8 py-4 border border-slate-200 hover:border-accent text-slate-700 hover:text-accent font-bold rounded-xl transition-all hover:bg-slate-50 flex items-center gap-2 mx-auto group shadow-sm"
-             >
-                Acessar Portal de Conteúdo <IconArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-             </button>
-         </div>
-      </section>
-
-      {/* Newsletter Section */}
-      <section id="newsletter" className="py-24 bg-slate-50 border-t border-slate-200">
-        <div className="container mx-auto px-4">
-          <div className="max-w-5xl mx-auto bg-white p-8 md:p-16 rounded-3xl shadow-xl border border-slate-100 relative overflow-hidden">
-            <div className="absolute top-0 right-0 w-96 h-96 bg-blue-100/50 rounded-full blur-[80px] -translate-y-1/2 translate-x-1/4"></div>
-            
-            <div className="relative z-10 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-               <div>
-                  <h2 className="text-3xl font-bold text-slate-900 mb-4">Fique à frente do mercado</h2>
-                  <p className="text-slate-500 mb-6 text-lg">
-                     Receba estratégias de software e inteligência artificial direto no seu e-mail. Junte-se a líderes que inovam.
-                  </p>
-                  <div className="flex flex-wrap gap-4 text-sm text-slate-500">
-                     <span className="flex items-center gap-2"><IconCheck className="w-5 h-5 text-tech"/> Conteúdo Técnico</span>
-                     <span className="flex items-center gap-2"><IconCheck className="w-5 h-5 text-tech"/> Sem Spam</span>
-                  </div>
-               </div>
-
-               <div>
-                  {subscribed ? (
-                    <div className="bg-emerald-50 border border-emerald-100 p-6 rounded-xl flex items-center gap-4 animate-fade-in">
-                      <div className="bg-tech rounded-full p-2 text-white">
-                         <IconCheck className="w-6 h-6" />
-                      </div>
-                      <div>
-                         <h4 className="text-emerald-900 font-bold">Inscrito com sucesso!</h4>
-                         <p className="text-emerald-600 text-sm">Bem-vindo à GTS Insider.</p>
-                      </div>
-                    </div>
-                  ) : (
-                    <form onSubmit={handleSubscribe} className="flex flex-col gap-4">
-                      <div className="relative">
-                         <input 
-                           type="email" 
-                           required
-                           placeholder="Seu e-mail corporativo" 
-                           value={email}
-                           onChange={(e) => setEmail(e.target.value)}
-                           className="w-full px-6 py-4 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 placeholder-slate-400 focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/20 transition-all disabled:opacity-50"
-                           disabled={isLoading}
-                         />
-                      </div>
-                      <button 
-                        type="submit" 
-                        disabled={isLoading}
-                        className="w-full px-6 py-4 bg-accent text-white hover:bg-accentHover font-bold rounded-xl transition-all transform hover:scale-[1.02] disabled:opacity-70 flex justify-center items-center shadow-lg shadow-accent/20"
-                      >
-                        {isLoading ? (
-                            <IconLoader className="w-5 h-5 animate-spin text-white" />
-                        ) : (
-                            "Assinar Gratuitamente"
-                        )}
-                      </button>
-                    </form>
-                  )}
-               </div>
-            </div>
-          </div>
-        </div>
       </section>
     </div>
   );

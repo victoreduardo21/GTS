@@ -1,7 +1,9 @@
+
 export enum ViewState {
   HOME = 'home',
   SERVICES = 'services',
   SYSTEMS = 'systems',
+  PORTFOLIO = 'portfolio',
   CONTACT = 'contact',
   BLOG = 'blog'
 }
@@ -34,5 +36,13 @@ export interface SystemItem {
   description: string;
   status: 'Live' | 'Beta' | 'Dev';
   tags: string[];
+  image: string;
+}
+
+export interface PortfolioItem {
+  title: string;
+  description: string;
+  url: string;
+  category: string;
   image: string;
 }
