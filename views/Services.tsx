@@ -1,14 +1,15 @@
+
 import React from 'react';
 import { SERVICES } from '../constants';
 import { IconCode, IconCloud, IconCpu, IconShield, IconArrowRight, IconWhatsApp } from '../components/Icons';
 
 const getIcon = (name: string) => {
   switch (name) {
-    case 'Code': return <IconCode className="w-8 h-8 text-accent" />;
-    case 'Cloud': return <IconCloud className="w-8 h-8 text-accent" />;
-    case 'Cpu': return <IconCpu className="w-8 h-8 text-accent" />;
-    case 'Shield': return <IconShield className="w-8 h-8 text-accent" />;
-    default: return <IconCode className="w-8 h-8 text-accent" />;
+    case 'Code': return <IconCode className="w-6 h-6 text-white" />;
+    case 'Cloud': return <IconCloud className="w-6 h-6 text-white" />;
+    case 'Cpu': return <IconCpu className="w-6 h-6 text-white" />;
+    case 'Shield': return <IconShield className="w-6 h-6 text-white" />;
+    default: return <IconCode className="w-6 h-6 text-white" />;
   }
 };
 
@@ -33,19 +34,19 @@ const Services: React.FC = () => {
          </div>
       </div>
 
-      {/* Service Cards */}
+      {/* Service Cards - ESTILO CLARO */}
       <div className="container mx-auto px-4 py-20">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 -mt-32">
           {SERVICES.map((service, index) => (
             <div 
               key={index}
-              className="group p-10 rounded-3xl bg-white border border-slate-200 hover:border-accent hover:bg-slate-50 transition-all shadow-xl shadow-slate-200/50 hover:shadow-accent/10 hover:-translate-y-2 relative overflow-hidden"
+              className="group p-10 rounded-[2.5rem] bg-white border border-blue-600/20 hover:border-accent transition-all shadow-xl shadow-slate-200/50 hover:shadow-accent/10 hover:-translate-y-2 relative overflow-hidden"
             >
-              <div className="mb-8 p-5 bg-blue-50 rounded-2xl inline-flex items-center justify-center border border-blue-100 group-hover:scale-110 transition-transform duration-300">
+              <div className="mb-8 p-4 bg-accent rounded-xl inline-flex items-center justify-center shadow-lg shadow-blue-500/20">
                 {getIcon(service.icon)}
               </div>
-              <h3 className="text-2xl font-bold text-slate-900 mb-4 group-hover:text-accent transition-colors">{service.title}</h3>
-              <p className="text-slate-500 leading-relaxed text-lg mb-8">
+              <h3 className="text-2xl font-extrabold text-slate-900 mb-4 group-hover:text-accent transition-colors">{service.title}</h3>
+              <p className="text-slate-500 leading-relaxed text-lg mb-10">
                 {service.description}
               </p>
               
@@ -53,7 +54,7 @@ const Services: React.FC = () => {
                 href={`https://wa.me/5513996104848?text=Olá, tenho interesse no serviço de ${encodeURIComponent(service.title)}. Como funciona?`}
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 text-white font-bold bg-accent hover:bg-accentHover px-6 py-3 rounded-xl transition-all shadow-lg shadow-accent/20"
+                className="inline-flex items-center gap-2 text-accent font-bold group-hover:gap-3 transition-all"
               >
                  Solicitar Proposta <IconArrowRight className="w-4 h-4" />
               </a>

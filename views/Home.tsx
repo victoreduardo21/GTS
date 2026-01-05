@@ -30,19 +30,19 @@ const Home: React.FC<HomeProps> = ({ onChangeView }) => {
       category: "Inteligência Artificial",
       title: "Soluções com IA Generativa",
       desc: "Automação real. De chatbots inteligentes a análise preditiva de vendas.",
-      icon: <IconCpu className="w-8 h-8 text-accent" />
+      icon: <IconCpu className="w-6 h-6 text-white" />
     },
     {
       category: "Web & Mobile",
       title: "Apps de Alta Performance",
       desc: "Aplicativos que não travam e sites que carregam em milissegundos.",
-      icon: <IconGlobe className="w-8 h-8 text-accent" />
+      icon: <IconGlobe className="w-6 h-6 text-white" />
     },
     {
       category: "SaaS & Cloud",
       title: "Plataformas Escaláveis",
       desc: "Sistemas que crescem com sua empresa, hospedados na nuvem (Google/AWS).",
-      icon: <IconCloud className="w-8 h-8 text-accent" />
+      icon: <IconCloud className="w-6 h-6 text-white" />
     }
   ];
 
@@ -158,19 +158,19 @@ const Home: React.FC<HomeProps> = ({ onChangeView }) => {
         </div>
       </section>
 
-      {/* Alcance Global - VERSÃO GLOBO REAL 3D */}
+      {/* Alcance Global */}
       <section className="py-24 bg-white overflow-hidden relative">
         <div className="container mx-auto px-4">
           <div className="flex flex-col lg:flex-row items-center gap-20">
             {/* Texto e Stats */}
-            <div className="w-full lg:w-1/2 space-y-12 relative z-10">
+            <div className="w-full lg:w-1/2 space-y-12 relative z-10 text-center lg:text-left">
               <div>
                 <h2 className="text-accent font-bold uppercase tracking-widest text-sm mb-4">Presença Internacional</h2>
                 <h3 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-slate-900 mb-6 tracking-tight">
-                  A Tecnologia que o <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-tech">Planeta Confia</span>
+                  Trabalhamos no <span className="text-accent">Mundo Inteiro</span>
                 </h3>
-                <p className="text-slate-500 text-xl leading-relaxed max-w-xl">
-                  Nossa infraestrutura não conhece limites geográficos. Operamos com hubs estratégicos que garantem que sua aplicação esteja sempre disponível e performática em qualquer fuso horário.
+                <p className="text-slate-500 text-xl leading-relaxed max-w-xl mx-auto lg:mx-0">
+                  Nossa infraestrutura distribuída nos permite entregar tecnologia de ponta em qualquer fuso horário, garantindo agilidade e suporte ininterrupto.
                 </p>
               </div>
 
@@ -188,37 +188,65 @@ const Home: React.FC<HomeProps> = ({ onChangeView }) => {
                   <div className="text-xs font-bold text-slate-500 uppercase tracking-widest">Uptime Garantido</div>
                 </div>
               </div>
-              
-              <div className="pt-6">
-                <button 
-                  onClick={() => onChangeView(ViewState.CONTACT)}
-                  className="flex items-center gap-3 text-accent font-bold hover:gap-4 transition-all text-lg group"
-                >
-                  Saiba como escalamos globalmente
-                  <IconArrowRight className="w-5 h-5 group-hover:translate-x-1" />
-                </button>
-              </div>
             </div>
 
-            {/* Visual Real 3D Globe - Pontos removidos conforme pedido */}
+            {/* Visual Globe Minimalista */}
             <div className="w-full lg:w-1/2 relative flex justify-center items-center py-20 lg:py-0">
               <div className="relative w-[320px] h-[320px] md:w-[580px] md:h-[580px]">
-                {/* External Atmospheric Glow */}
                 <div className="absolute inset-[-40px] bg-blue-500/10 rounded-full blur-[70px] animate-pulse"></div>
-                
-                {/* The Globe Core */}
                 <div className="globe-3d absolute inset-0 rounded-full bg-slate-900 animate-globe-rotate overflow-hidden border border-slate-200/50">
-                   {/* Specular Shine Overlay */}
                    <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/5 to-white/20 pointer-events-none"></div>
                 </div>
-
-                {/* Floating Tech Orbits */}
-                <div className="absolute inset-[-30px] border border-slate-200/10 rounded-full animate-spin-slow opacity-40 pointer-events-none"></div>
-                <div className="absolute inset-[-80px] border border-slate-200/5 rounded-full animate-spin-slow [animation-direction:reverse] opacity-20 pointer-events-none"></div>
               </div>
             </div>
           </div>
         </div>
+      </section>
+
+      {/* O Que Construímos - CARDS CLAROS CONFORME IMAGEM */}
+      <section className="py-24 bg-white relative">
+         <div className="container mx-auto px-4">
+            <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
+               <div className="max-w-2xl">
+                   <h2 className="text-accent font-bold uppercase tracking-widest text-sm mb-2">Expertise Técnica</h2>
+                   <h3 className="text-4xl md:text-5xl font-bold text-slate-900">O Que Construímos</h3>
+                   <p className="text-slate-500 mt-4 text-lg">Do MVP ao Enterprise Scale. Nossa stack é focada em durabilidade e escala.</p>
+               </div>
+               <button 
+                  onClick={() => onChangeView(ViewState.SERVICES)}
+                  className="text-accent font-bold hover:text-accentHover transition-colors flex items-center gap-2"
+               >
+                  Ver todos os serviços <IconArrowRight className="w-4 h-4" />
+               </button>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+               {developments.map((item, index) => (
+                  <div key={index} className="bg-white p-10 rounded-[2.5rem] border border-blue-600/30 hover:shadow-2xl hover:shadow-blue-500/10 transition-all duration-300 flex flex-col items-start group">
+                     {/* Ícone Azul Sólido */}
+                     <div className="w-14 h-14 bg-accent rounded-xl flex items-center justify-center mb-8 shadow-lg shadow-blue-500/20">
+                        {item.icon}
+                     </div>
+                     {/* Categoria em Cinza */}
+                     <span className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] block mb-3">
+                        {item.category}
+                     </span>
+                     {/* Título Bold */}
+                     <h3 className="text-2xl font-extrabold text-slate-900 mb-4 group-hover:text-accent transition-colors">
+                        {item.title}
+                     </h3>
+                     {/* Descrição em Cinza */}
+                     <p className="text-slate-500 leading-relaxed mb-10 text-base">
+                        {item.desc}
+                     </p>
+                     {/* Link Saiba Mais com Seta */}
+                     <a onClick={() => onChangeView(ViewState.SERVICES)} className="text-accent text-sm font-bold flex items-center gap-2 cursor-pointer group-hover:gap-3 transition-all mt-auto">
+                        Saiba mais <IconArrowRight className="w-4 h-4" />
+                     </a>
+                  </div>
+               ))}
+            </div>
+         </div>
       </section>
 
       {/* Nossa História (Timeline) */}
@@ -249,105 +277,30 @@ const Home: React.FC<HomeProps> = ({ onChangeView }) => {
         </div>
       </section>
 
-      {/* Industries Grid - Setores que atendemos */}
-      <section className="py-24 bg-white border-b border-slate-100">
-         <div className="container mx-auto px-4">
-            <p className="text-center text-slate-400 font-bold uppercase tracking-widest text-[10px] mb-8">Setores que atendemos com GTS Enterprise</p>
-            <div className="flex flex-wrap justify-center gap-8 md:gap-16 opacity-50 grayscale hover:grayscale-0 transition-all text-slate-700">
-               <div className="flex items-center gap-2"><IconBuilding className="w-6 h-6 text-accent"/> <span className="font-bold text-sm">Fintechs</span></div>
-               <div className="flex items-center gap-2"><IconTruck className="w-6 h-6 text-accent"/> <span className="font-bold text-sm">Logística</span></div>
-               <div className="flex items-center gap-2"><IconGlobe className="w-6 h-6 text-accent"/> <span className="font-bold text-sm">Global SaaS</span></div>
-               <div className="flex items-center gap-2"><IconChart className="w-6 h-6 text-accent"/> <span className="font-bold text-sm">Big Data</span></div>
-               <div className="flex items-center gap-2"><IconShield className="w-6 h-6 text-accent"/> <span className="font-bold text-sm">Cybersecurity</span></div>
-            </div>
-         </div>
-      </section>
-
-      {/* O Que Desenvolvemos */}
-      <section className="py-24 bg-white relative">
-         <div className="container mx-auto px-4">
-            <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
-               <div className="max-w-2xl">
-                   <h2 className="text-accent font-bold uppercase tracking-widest text-sm mb-2">Expertise Técnica</h2>
-                   <h3 className="text-4xl md:text-5xl font-bold text-slate-900">O Que Construímos</h3>
-                   <p className="text-slate-500 mt-4 text-lg">Do MVP ao Enterprise Scale. Nossa stack é focada em durabilidade e escala.</p>
-               </div>
-               <button 
-                  onClick={() => onChangeView(ViewState.SERVICES)}
-                  className="text-accent font-bold hover:text-accentHover transition-colors flex items-center gap-2"
-               >
-                  Ver todos os serviços <IconArrowRight className="w-4 h-4" />
-               </button>
-            </div>
-            
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-               {developments.map((item, index) => (
-                  <div key={index} className="bg-white p-8 rounded-2xl border border-slate-200 hover:border-accent hover:shadow-xl hover:shadow-accent/5 transition-all duration-300 group hover:-translate-y-2">
-                     <div className="w-14 h-14 bg-blue-50 rounded-xl flex items-center justify-center mb-6 group-hover:bg-accent group-hover:text-white transition-all text-accent">
-                        {item.icon}
-                     </div>
-                     <span className="text-xs font-bold text-slate-400 uppercase tracking-wider block mb-2">
-                        {item.category}
-                     </span>
-                     <h3 className="text-2xl font-bold text-slate-900 mb-3">
-                        {item.title}
-                     </h3>
-                     <p className="text-slate-500 leading-relaxed mb-6">
-                        {item.desc}
-                     </p>
-                     <a onClick={() => onChangeView(ViewState.SERVICES)} className="text-accent text-sm font-bold flex items-center gap-2 cursor-pointer group-hover:gap-3 transition-all">
-                        Saiba mais <IconArrowRight className="w-4 h-4" />
-                     </a>
-                  </div>
-               ))}
-            </div>
-         </div>
-      </section>
-
-      {/* Middle CTA Section */}
-      <section className="py-20 bg-gradient-to-r from-accent to-blue-700 relative overflow-hidden">
-         <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 mix-blend-multiply"></div>
-         <div className="container mx-auto px-4 relative z-10 text-center">
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
-               Pronto para subir o nível da sua tecnologia?
-            </h2>
-            <p className="text-blue-100 text-lg max-w-2xl mx-auto mb-8">
-               Fale agora com nosso team de engenharia e receba um diagnóstico técnico gratuito do seu projeto.
-            </p>
-            <a 
-               href="https://wa.me/5513996104848?text=Olá, gostaria de uma consultoria gratuita para meu projeto de software."
-               target="_blank"
-               rel="noopener noreferrer"
-               className="inline-flex items-center justify-center px-8 py-4 bg-white text-blue-700 font-bold rounded-xl shadow-lg hover:bg-slate-50 transition-all transform hover:scale-105 gap-2"
-            >
-               <IconWhatsApp className="w-5 h-5" />
-               Falar com Especialista Agora
-            </a>
-         </div>
-      </section>
-
       {/* Portfólio Teaser */}
-      <section className="py-24 bg-slate-50 border-y border-slate-200">
+      <section className="py-24 bg-white border-y border-slate-100">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold text-slate-900 mb-4">Nossa Entrega em Números</h2>
             <p className="text-slate-500 max-w-2xl mx-auto">Mais de 50 projetos entregues com 100% de disponibilidade. Conheça alguns de nossos cases ativos.</p>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
             {PORTFOLIO_ITEMS.slice(0, 4).map((project, idx) => (
               <a 
                 key={idx}
                 href={project.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="bg-white p-4 rounded-2xl border border-slate-200 hover:border-accent hover:shadow-xl transition-all group overflow-hidden"
+                className="bg-white rounded-3xl border border-slate-200 hover:border-accent hover:shadow-xl transition-all group overflow-hidden"
               >
-                <div className="aspect-video mb-4 overflow-hidden rounded-xl">
-                  <img src={project.image} alt={project.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform" />
+                <div className="aspect-video overflow-hidden">
+                  <img src={project.image} alt={project.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
                 </div>
-                <h4 className="font-bold text-slate-900 mb-1">{project.title}</h4>
-                <p className="text-xs text-slate-400 font-bold uppercase tracking-wider">{project.category}</p>
+                <div className="p-6">
+                  <h4 className="font-extrabold text-slate-900 mb-1">{project.title}</h4>
+                  <p className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">{project.category}</p>
+                </div>
               </a>
             ))}
           </div>
