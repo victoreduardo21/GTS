@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { 
   IconCheck, 
@@ -217,7 +218,7 @@ const Systems: React.FC = () => {
              href="https://wa.me/5513996104848?text=Olá, tenho uma ideia de projeto personalizado e gostaria de um orçamento."
              target="_blank"
              rel="noopener noreferrer"
-             className="inline-block relative z-10 px-10 py-4 bg-white text-primary font-bold rounded-xl hover:bg-slate-200 transition-all transform hover:scale-105 shadow-xl"
+             className="inline-block relative z-10 px-10 py-4 bg-white text-slate-900 font-bold rounded-xl hover:bg-slate-200 transition-all transform hover:scale-105 shadow-xl"
            >
               Iniciar Projeto Personalizado
            </a>

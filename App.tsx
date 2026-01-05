@@ -199,16 +199,25 @@ const App: React.FC = () => {
               </ul>
             </div>
 
-            {/* Column 3: Hours */}
+            {/* Column 3: Contact & Hours */}
             <div>
-              <h4 className="text-slate-900 font-bold text-lg mb-6">Horário</h4>
-              <div className="flex items-start gap-3 text-slate-500">
-                  <IconClock className="w-5 h-5 text-slate-400 mt-1" />
-                  <div>
-                    <p className="font-medium text-slate-900">Segunda a Sexta</p>
-                    <p className="text-sm">09:00 - 18:00 (Brasília)</p>
-                    <p className="text-xs text-tech mt-2 font-bold bg-tech/10 inline-block px-2 py-1 rounded">Atendimento Global 24h para Suporte</p>
-                  </div>
+              <h4 className="text-slate-900 font-bold text-lg mb-6">Contato e Horário</h4>
+              <div className="space-y-6">
+                <div className="flex items-start gap-3 text-slate-500">
+                    <IconMail className="w-5 h-5 text-slate-400 mt-1" />
+                    <div>
+                      <p className="font-medium text-slate-900">Financeiro</p>
+                      <a href="mailto:financeiro@gts-software.com" className="text-sm hover:text-accent transition-colors">financeiro@gts-software.com</a>
+                    </div>
+                </div>
+                <div className="flex items-start gap-3 text-slate-500">
+                    <IconClock className="w-5 h-5 text-slate-400 mt-1" />
+                    <div>
+                      <p className="font-medium text-slate-900">Segunda a Sexta</p>
+                      <p className="text-sm">09:00 - 18:00 (Brasília)</p>
+                      <p className="text-xs text-tech mt-2 font-bold bg-tech/10 inline-block px-2 py-1 rounded">Atendimento Global 24h para Suporte</p>
+                    </div>
+                </div>
               </div>
             </div>
           </div>
